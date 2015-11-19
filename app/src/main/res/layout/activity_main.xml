@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:orientation="vertical"
     android:layout_height="fill_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -11,6 +12,26 @@
     android:columnOrderPreserved="true"
     android:rowOrderPreserved="true">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/diagPassword"
+        android:id="@+id/keyPrompt"
+        android:layout_gravity="center_horizontal|top"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        android:fontFamily="sans-serif-medium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/keyView"
+        android:layout_gravity="center_horizontal|top"
+        android:password="true"
+        android:layout_margin="20dp" />
 
     <GridLayout
         android:layout_width="wrap_content"
@@ -200,15 +221,4 @@
             android:onClick="numPad" />
     </GridLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/diagPassword"
-        android:id="@+id/keyPrompt"
-        android:layout_gravity="center_horizontal|top"
-        android:textColor="#ffffff"
-        android:textSize="30dp"
-        android:fontFamily="sans-serif-medium" />
-
-</FrameLayout>
+</LinearLayout>
