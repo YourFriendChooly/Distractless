@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#0288d1</color>
     <color name="colorAccent">#ffc107</color>
     <color name="primary_text_default_material_light">#212121</color>
-    <color name="primary_text_material_light">#212121</color>
-    <color name="secondary_text_material_light">#727272</color>
+    <color name="primary_text_material_light">#ffffff</color>
+    <color name="secondary_text_material_light">#eeeeee</color>
+    <color name="background_material_light">#03a9f4</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

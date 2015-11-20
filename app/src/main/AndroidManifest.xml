@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".ToDoList" >
         </activity>
+        <activity android:name=".setAlarm" >
+        </activity>
     </application>
 
 </manifest>

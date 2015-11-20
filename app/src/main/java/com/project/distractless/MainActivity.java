@@ -1,9 +1,14 @@
 package com.project.distractless;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     String keyEntry = "";
     SharedPreferences keyStore;
     Boolean noKey;
+    Boolean firstRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +92,42 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor keyEdit = keyStore.edit();
             keyEdit.putString("keyValue", keyEntry);
             keyEdit.commit();
+            keyEntry = "";
         } else if (keyEntry.equals(keyInstance)){
             keyPrompt.setText("Match!");
-            //TODO Code Transition to next Activity once keys match.
+            exitReveal();
+
+        } else if (keyEntry.length() == 6 && !keyEntry.equals(keyInstance)){
+            keyPrompt.setText("Invalid Password");
+            keyEntry = "";
+            keyView.setText(keyEntry);
         }
     }
+    //Exit transition animation circular reveal
+    void exitReveal() {
+        final View mTransition = findViewById(R.id.pinScreen);
+        //Get Center of screen for clip
+        int cx = mTransition.getMeasuredWidth()/2;
+        int cy = mTransition.getMeasuredHeight()/2;
 
+        //get final radius of clipping circle
+        int finalRadius = Math.max(mTransition.getWidth(), mTransition.getHeight())/2;
+
+        //Create an Animator for the view
+        Animator anim =
+                ViewAnimationUtils.createCircularReveal(mTransition, cx, cy, finalRadius, 0);
+        anim.addListener(new AnimatorListenerAdapter() {
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mTransition.setVisibility(View.INVISIBLE);
+                startActivity(new Intent(MainActivity.this, setAlarm.class));
+                //TODO Code Next Activity Here, set boolean for next activity to determine if it's app first run.
+            }
+        });
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setDuration(550);
+        anim.start();
+    }
 }

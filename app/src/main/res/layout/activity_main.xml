@@ -10,7 +10,8 @@
     android:columnCount="3"
     android:rowCount="4"
     android:columnOrderPreserved="true"
-    android:rowOrderPreserved="true">
+    android:rowOrderPreserved="true"
+    android:id="@+id/pinScreen">
 
 
     <TextView
@@ -31,7 +32,8 @@
         android:id="@+id/keyView"
         android:layout_gravity="center_horizontal|top"
         android:password="true"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        android:textSize="25dp" />
 
     <GridLayout
         android:layout_width="wrap_content"
