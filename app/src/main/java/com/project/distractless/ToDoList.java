@@ -29,7 +29,7 @@ public class ToDoList extends AppCompatActivity
         setContentView(R.layout.to_do_list);
         //TODO Code to do list according to guide at https://guides.codepath.com/android/Basic-Todo-App-Tutorial
 
-        lvItems = (ListView) findViewById(R.id.lvItems);
+        ListView lvItems = (ListView) findViewById(R.id.lvItems);
         items = new ArrayList<String>();
         itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
@@ -75,7 +75,7 @@ public class ToDoList extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu); //Broken??
+        getMenuInflater().inflate(R.menu.menu_run_list, menu);
         return true;
     }
     private void readItems()
