@@ -1,14 +1,15 @@
 package com.project.distractless;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
 import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,12 +31,14 @@ public class ToDoList extends AppCompatActivity
                 (ToDoList.this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
 
-        Button devGo = (Button) findViewById(R.id.devGo);
-
-        devGo.setOnClickListener(new View.OnClickListener() {
+        /*
+        Floating Action Button creates a dialogue to enter items to the to-do-list
+         */
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ToDoList.this, alarmFragment.class));
+            public void onClick(View view) {
+                //TODO Code Dialog pop-up for text entry.
             }
         });
     }

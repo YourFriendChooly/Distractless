@@ -20,6 +20,12 @@
         android:layout_weight="1"
         android:layout_gravity="center_horizontal" />
 
+    <Gallery
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gallery"
+        android:layout_gravity="right" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,7 +40,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="0.17" />
 
-    <Button
+    Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Item"
@@ -46,10 +52,9 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_gravity="center_vertical" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/devGo" />
+    <android.support.design.widget.FloatingActionButton android:id="@+id/todoFab"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom" android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_done" />
 
 </LinearLayout>

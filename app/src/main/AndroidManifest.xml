@@ -24,6 +24,11 @@
             android:label="@string/title_activity_alarm_fragment"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".ToDoList1"
+            android:label="@string/title_activity_to_do_list1"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,21 +1,19 @@
 package com.project.distractless;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
 import org.apache.commons.io.FileUtils;
@@ -30,6 +28,7 @@ public class alarmFragment extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     static ArrayList<String> items;
     private ViewPager mViewPager;
+    static int numComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,20 +47,12 @@ public class alarmFragment extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
     }
 
@@ -153,8 +144,28 @@ public class alarmFragment extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_alarm, container, false);
             TextView listNumber = (TextView) rootView.findViewById(R.id.section_label);
             TextView listContents = (TextView) rootView.findViewById(R.id.list_content);
+            final TextView itemComplete = (TextView) rootView.findViewById(R.id.isCompleted);
             listNumber.setText(getArguments().getString(ARG_SECTION_NUMBER));
             listContents.setText(getArguments().getString(ARG_LIST_CONTENTS));
+
+                    /*
+        FloatingActionButton fab serves as an icon to mark a task as complete. The following
+        fragmentManager will remove the fragment once it has been completed.
+         */
+            FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    numComplete++;
+                    if (numComplete == items.size()) {
+                        //startActivity(new Intent(getContext(), recap.class));
+                    } else {
+                        itemComplete.setVisibility(View.VISIBLE);
+                        itemComplete.setText(numComplete+"/"+items.size()+" Complete!");
+                    }
+
+                }
+            });
 
             return rootView;
         }
