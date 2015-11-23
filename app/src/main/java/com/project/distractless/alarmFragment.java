@@ -1,7 +1,10 @@
 package com.project.distractless;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -12,20 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+
 import android.widget.TextView;
 
-public class runList extends AppCompatActivity {
-
-    private static runList inst;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        inst = this;
-    }
-
-
+public class alarmFragment extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -45,7 +38,7 @@ public class runList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_run_list);
+        setContentView(R.layout.alarm_fragment);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,13 +51,22 @@ public class runList extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_run_list, menu);
+        getMenuInflater().inflate(R.menu.menu_alarm, menu);
         return true;
     }
 
@@ -72,17 +74,13 @@ public class runList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId()
+        int id = item.getItemId();
+
         //noinspection SimplifiableIfStatement
-
         if (id == R.id.action_settings) {
-
             return true;
-
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -107,11 +105,12 @@ public class runList extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            //TODO Code return for # of fragments based on # of items in to-do list.
-            // ArrayAdapter getCount() = TODO length of array containing to-do list.
-            return 3;
+            // Show 3 total pages.
+            ToDoList getItems = new ToDoList();
+            int count = getItems.getItems();
+            return count;
         }
-        /*
+
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
@@ -123,7 +122,7 @@ public class runList extends AppCompatActivity {
                     return "SECTION 3";
             }
             return null;
-        } */
+        }
     }
 
     /**
@@ -135,20 +134,21 @@ public class runList extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
-        private static final String ARG_ITEM_TEXT = "item_text";
+        private static final String ARG_LIST_CONTENTS = "list_contents";
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
-            //TODO This is where I bundle in the Arguments for the Fragments according to items in the To-do list.
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            //args.putString(ARG_ITEM_TEXT, arrayAdapter.getItem(sectionNumber));
             fragment.setArguments(args);
             return fragment;
+
+            //Link Data from list array here.
+
         }
 
         public PlaceholderFragment() {
@@ -157,15 +157,12 @@ public class runList extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_run_list, container, false);
-            TextView sectionView = (TextView) rootView.findViewById(R.id.section_label);
-            TextView itemView = (TextView) rootView.findViewById(R.id.item_label);
-            sectionView.setText(getString());
-            itemView.setText(getArguments().getString(ARG_ITEM_TEXT));
+            View rootView = inflater.inflate(R.layout.fragment_alarm, container, false);
+            TextView listNumber = (TextView) rootView.findViewById(R.id.section_label);
+            TextView listContents = (TextView) rootView.findViewById(R.id.list_content);
+            listNumber.setText("test");
 
-            //TODO this will be where the layout for the fragment is coded.
             return rootView;
         }
     }
 }
-
