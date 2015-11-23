@@ -2,7 +2,6 @@ package com.project.distractless;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -10,15 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,13 +30,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Linking interface objects
+        /*
+        Instantiations:
+        keyPrompt will change it's output depending on if there is a valid key stored in memory,
+        or depending on if the user key entered matched the stored key or not.
+        keyView is used for feedback to display the number of digits (in password form) user enters.
+        keyStore reads the saved key value.
+        keyInstance will parse the string from keyStore, and if there is no value present a default
+        value of A will be passed to the variable.
+         */
         keyPrompt = (TextView) findViewById(R.id.keyPrompt);
         keyView = (TextView) findViewById(R.id.keyView);
-
         keyStore = getSharedPreferences(KEY, 0);
-        //Get Stored Key
         keyInstance = keyStore.getString("keyValue", "a");
+
+        //The following will adjust the keyPrompt output depending on if keyInstance pulls the
+        //default value from keyStore or not.
         if (keyInstance.equals("a")){
             keyPrompt.setText("Select A 6 Digit Key");
             noKey = true;
@@ -53,7 +55,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Code for NumberPad
+    /*
+    Void numPad is used with a series of Case Statements for an OnClick return, which will allow
+    us to easily code the return values for all of the numbers in the numberpad instead of having
+    to code an on-click listener for each of the 10 buttons.
+     */
     public void numPad (View view){
         switch(view.getId()){
             case R.id.numPad1:
@@ -89,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Adds values to key, check password, if conditions are met spit output.
+    /*
+    Void numData checks the value of the user-entered string after every button press, up to a
+    maximum of 6 presses, and checks it against several conditions.
+    noKey is a boolean assignment that looks for a default value assigned to the key in memory, if
+    the default value is present then the value is replaced by the newly entered key.
+     */
     public void numData (String num){
         keyEntry = keyEntry + num;
         keyView.setText(keyEntry);
@@ -109,7 +120,12 @@ public class MainActivity extends AppCompatActivity {
             keyView.setText(keyEntry);
         }
     }
-    //Exit transition animation circular reveal
+
+    /*
+    exitRevel creates a circular reveal animation for transition from activity to activity.
+    it reads the screen size, and determines the center of the screen, for it's start and end
+    parameters.
+     */
     void exitReveal() {
         final View mTransition = findViewById(R.id.pinScreen);
         //Get Center of screen for clip
