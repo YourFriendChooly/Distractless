@@ -18,6 +18,12 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class alarmFragment extends AppCompatActivity {
 
     /**
@@ -30,6 +36,8 @@ public class alarmFragment extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
+    static ArrayList<String> items;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -39,6 +47,13 @@ public class alarmFragment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_fragment);
+        File filesDir = getFilesDir();
+        File todoFile = new File(filesDir, "todo.txt");
+        try {
+            items = new ArrayList<String>(FileUtils.readLines(todoFile));
+        } catch (IOException e) {
+            items = new ArrayList<String>();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -106,23 +121,10 @@ public class alarmFragment extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            ToDoList getItems = new ToDoList();
-            int count = getItems.getItems();
+            int count = items.size();
             return count;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
-        }
     }
 
     /**
@@ -133,7 +135,7 @@ public class alarmFragment extends AppCompatActivity {
          * The fragment argument representing the section number for this
          * fragment.
          */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final String ARG_SECTION_NUMBER = "list_number";
         private static final String ARG_LIST_CONTENTS = "list_contents";
 
         /**
@@ -142,8 +144,10 @@ public class alarmFragment extends AppCompatActivity {
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
+            String sectionString = String.valueOf(sectionNumber);
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putString(ARG_SECTION_NUMBER, sectionString);
+            args.putString(ARG_LIST_CONTENTS, items.get(sectionNumber-1));
             fragment.setArguments(args);
             return fragment;
 
@@ -157,10 +161,12 @@ public class alarmFragment extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
             View rootView = inflater.inflate(R.layout.fragment_alarm, container, false);
             TextView listNumber = (TextView) rootView.findViewById(R.id.section_label);
             TextView listContents = (TextView) rootView.findViewById(R.id.list_content);
-            listNumber.setText("test");
+            listNumber.setText(getArguments().getString(ARG_SECTION_NUMBER));
+            listContents.setText(getArguments().getString(ARG_LIST_CONTENTS));
 
             return rootView;
         }
