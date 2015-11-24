@@ -28,7 +28,7 @@ public class alarmFragment extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     static ArrayList<String> items;
     private ViewPager mViewPager;
-    static int numComplete;
+    static int numComplete = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,6 @@ public class alarmFragment extends AppCompatActivity {
             items = new ArrayList<String>();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -148,12 +146,12 @@ public class alarmFragment extends AppCompatActivity {
             listNumber.setText(getArguments().getString(ARG_SECTION_NUMBER));
             listContents.setText(getArguments().getString(ARG_LIST_CONTENTS));
 
-                    /*
+            /*
         FloatingActionButton fab serves as an icon to mark a task as complete. The following
         fragmentManager will remove the fragment once it has been completed.
          */
-            FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
+            FloatingActionButton runFab = (FloatingActionButton) getActivity().findViewById(R.id.runFab);
+            runFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     numComplete++;

@@ -3,9 +3,12 @@ package com.project.distractless;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
@@ -20,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ToDoList extends AppCompatActivity
+public class ToDoList extends ActionBarActivity
 {
     public static ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
@@ -35,8 +38,14 @@ public class ToDoList extends AppCompatActivity
         Create Toolbar
          */
         Toolbar toolbar = (Toolbar) findViewById(R.id.todo_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle("Create List");
+        toolbar.setTitle("Create A List!");
+        toolbar.inflateMenu(R.menu.todo_toolbar);
+        toolbar.findViewById(R.id.forward).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                runCheck();
+            }
+        });
 
         ListView lvItems = (ListView) findViewById(R.id.lvItems);
         readItems();
@@ -49,8 +58,8 @@ public class ToDoList extends AppCompatActivity
         Floating Action Button creates a dialogue to enter items to the to-do-list.
         Within the FAB On Click Listener is the Alert Dialog pop-up
          */
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton todoFab = (FloatingActionButton) findViewById(R.id.todoFab);
+        todoFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*
@@ -62,6 +71,8 @@ public class ToDoList extends AppCompatActivity
                 builder.setTitle("Create an Item");
                 final EditText input = new EditText(ToDoList.this);
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setHint("Enter an Item");
+                input.setTextColor(getResources().getColor(R.color.black_overlay));
                 builder.setView(input);
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -79,6 +90,8 @@ public class ToDoList extends AppCompatActivity
                         dialog.cancel();
                     }
                 });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
