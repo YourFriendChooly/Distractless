@@ -1,6 +1,7 @@
 package com.project.distractless;
 
 
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +27,7 @@ public class alarmFragment extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     static ArrayList<String> items;
-    private ViewPager mViewPager;
+    private static ViewPager mViewPager;
     static int numComplete = 0;
 
     @Override
@@ -92,7 +92,8 @@ public class alarmFragment extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            PlaceholderFragment fragReturn = new PlaceholderFragment();
+            return fragReturn.newInstance(position+1);
         }
 
         @Override
@@ -114,23 +115,24 @@ public class alarmFragment extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "list_number";
         private static final String ARG_LIST_CONTENTS = "list_contents";
-
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public PlaceholderFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             String sectionString = String.valueOf(sectionNumber);
             Bundle args = new Bundle();
             args.putString(ARG_SECTION_NUMBER, sectionString);
-            args.putString(ARG_LIST_CONTENTS, items.get(sectionNumber-1));
+            args.putString(ARG_LIST_CONTENTS, items.get(sectionNumber - 1));
             fragment.setArguments(args);
             return fragment;
-
             //Link Data from list array here.
 
+
         }
+        FragmentManager mFragmentManager = getFragmentManager();
+        FragmentTransaction ft;
 
         public PlaceholderFragment() {
         }
@@ -153,14 +155,17 @@ public class alarmFragment extends AppCompatActivity {
             FloatingActionButton runFab = (FloatingActionButton) getActivity().findViewById(R.id.runFab);
             runFab.setOnClickListener(new View.OnClickListener() {
                 @Override
+
                 public void onClick(View view) {
                     numComplete++;
-                    if (numComplete == items.size()) {
+                    if (numComplete >= items.size()) {
                         //startActivity(new Intent(getContext(), recap.class));
                     } else {
-                        itemComplete.setVisibility(View.VISIBLE);
-                        itemComplete.setText(numComplete+"/"+items.size()+" Complete!");
+                        itemComplete.setText(numComplete + "/" + items.size() + " Complete!");
                     }
+                    mFragmentManager.findFragmentById(getId());
+                    ft.remove(mFragmentManager.findFragmentById(getId()));
+                    mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
 
                 }
             });
