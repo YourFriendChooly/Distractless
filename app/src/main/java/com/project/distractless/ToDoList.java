@@ -34,6 +34,34 @@ public class ToDoList extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_do_list);
+
+        /*
+        Run Check to see if there is an existing to-do-list stored locally on the phone. If it
+        is present, prompt the user to either load the old to-do list or create a new one.
+         */
+        if (readItems()){
+            AlertDialog.Builder loadPrompt = new AlertDialog.Builder(ToDoList.this);
+            loadPrompt.setTitle("Previous To-Do List Found");
+            loadPrompt.setMessage("Would you like to load your old list, or start a new one?");
+
+            loadPrompt.setPositiveButton("NEW LIST", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    items.clear();
+                }
+            });
+            loadPrompt.setNegativeButton("LOAD LIST", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    readItems();
+                }
+            });
+            AlertDialog dialog = loadPrompt.create();
+            dialog.show();
+        }
+
+
+
         /*
         Create Toolbar
          */
@@ -109,18 +137,24 @@ public class ToDoList extends ActionBarActivity
 
     public void runCheck(){
         //TODO CODE THE INTENT IF/ELSE FOR IF ACTIVITY HAS BEEN RUN AND DIRECT FLOW.
+        //TODO Add "Run assistant at next launch" checkbox in 'advanced settings.'
         //Alarm Fragment.class will be changed to the advanced settings menu, once it has been created.
+
+
+
         startActivity(new Intent(ToDoList.this, alarmFragment.class));
     }
 
-    public void readItems()
+    public boolean readItems()
     {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
             items = new ArrayList<String>(FileUtils.readLines(todoFile));
+            return true;
         } catch (IOException e) {
             items = new ArrayList<String>();
+            return false;
         }
     }
 
