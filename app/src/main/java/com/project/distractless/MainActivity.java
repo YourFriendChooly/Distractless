@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                mTransition.setVisibility(View.INVISIBLE);
+                //mTransition.setVisibility(View.INVISIBLE);
                 startActivity(new Intent(MainActivity.this, setAlarm.class));
                 //TODO Code Next Activity Here, set boolean for next activity to determine if it's app first run.
             }

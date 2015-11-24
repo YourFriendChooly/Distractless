@@ -139,9 +139,6 @@ public class ToDoList extends ActionBarActivity
         //TODO CODE THE INTENT IF/ELSE FOR IF ACTIVITY HAS BEEN RUN AND DIRECT FLOW.
         //TODO Add "Run assistant at next launch" checkbox in 'advanced settings.'
         //Alarm Fragment.class will be changed to the advanced settings menu, once it has been created.
-
-
-
         startActivity(new Intent(ToDoList.this, alarmFragment.class));
     }
 
@@ -168,7 +165,6 @@ public class ToDoList extends ActionBarActivity
             e.printStackTrace();
         }
     }
-
 }
 
 

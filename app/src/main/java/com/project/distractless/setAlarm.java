@@ -103,7 +103,7 @@ public class setAlarm extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                mTransition.setVisibility(View.INVISIBLE);
+                //mTransition.setVisibility(View.INVISIBLE);
                 startActivity(new Intent(setAlarm.this, ToDoList.class));
                 //TODO Set boolean for next activity to determine if it's app first run.
             }
