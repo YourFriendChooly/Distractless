@@ -54,6 +54,7 @@ public class ToDoList extends ActionBarActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     readItems();
+                    itemsAdapter.notifyDataSetChanged();
                 }
             });
             AlertDialog dialog = loadPrompt.create();
@@ -153,6 +154,7 @@ public class ToDoList extends ActionBarActivity
             items = new ArrayList<String>();
             return false;
         }
+
     }
 
     private void writeItems()

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,11 +50,20 @@ public class alarmFragment extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
-
+        /*
+        FloatingActionButton fab serves as an icon to mark a task as complete. The following
+        fragmentManager will remove the fragment once it has been completed.
+         */
+        FloatingActionButton runFab = (FloatingActionButton) findViewById(R.id.runFab);
+        runFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = mViewPager.getCurrentItem();
+                mSectionsPagerAdapter.DestroyItem(position);
+            }
+        });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,6 +98,24 @@ public class alarmFragment extends AppCompatActivity {
             super(fm);
         }
 
+        public void DestroyItem(int position){
+            Object objectobject = this.instantiateItem(mViewPager, position);
+            if (objectobject != null)
+                destroyItem(mViewPager, position, objectobject);
+                //TODO Create a FOR loop to rearrange the items in the list after an item has been removed.;
+                notifyDataSetChanged();
+                /*
+                getCount();
+                if (position+1 <= items.size() && items.size() != 1){
+                    mViewPager.setCurrentItem(position+1, true);
+                }
+                if (position-1 != 0){
+                    mViewPager.setCurrentItem(position-1, true);
+                }
+                */
+                }
+
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -96,12 +124,22 @@ public class alarmFragment extends AppCompatActivity {
             return fragReturn.newInstance(position+1);
         }
 
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+            notifyDataSetChanged();
+            }
+
+
         @Override
         public int getCount() {
             // Show 3 total pages.
             int count = items.size();
             return count;
         }
+
+
 
     }
 
@@ -115,6 +153,7 @@ public class alarmFragment extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "list_number";
         private static final String ARG_LIST_CONTENTS = "list_contents";
+        private static final String ARG_FRAG_ID = "fragment_id";
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -126,13 +165,16 @@ public class alarmFragment extends AppCompatActivity {
             args.putString(ARG_SECTION_NUMBER, sectionString);
             args.putString(ARG_LIST_CONTENTS, items.get(sectionNumber - 1));
             fragment.setArguments(args);
+            int fragID = fragment.getId();
+            args.putInt(ARG_FRAG_ID, fragID);
+            String TAG = "Fragment";
+
             return fragment;
             //Link Data from list array here.
 
 
         }
         FragmentManager mFragmentManager = getFragmentManager();
-        FragmentTransaction ft;
 
         public PlaceholderFragment() {
         }
@@ -147,28 +189,6 @@ public class alarmFragment extends AppCompatActivity {
             final TextView itemComplete = (TextView) rootView.findViewById(R.id.isCompleted);
             listNumber.setText(getArguments().getString(ARG_SECTION_NUMBER));
             listContents.setText(getArguments().getString(ARG_LIST_CONTENTS));
-
-            /*
-        FloatingActionButton fab serves as an icon to mark a task as complete. The following
-        fragmentManager will remove the fragment once it has been completed.
-         */
-            FloatingActionButton runFab = (FloatingActionButton) getActivity().findViewById(R.id.runFab);
-            runFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-
-                public void onClick(View view) {
-                    numComplete++;
-                    if (numComplete >= items.size()) {
-                        //startActivity(new Intent(getContext(), recap.class));
-                    } else {
-                        itemComplete.setText(numComplete + "/" + items.size() + " Complete!");
-                    }
-                    mFragmentManager.findFragmentById(getId());
-                    ft.remove(mFragmentManager.findFragmentById(getId()));
-                    mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
-
-                }
-            });
 
             return rootView;
         }
