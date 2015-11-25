@@ -60,6 +60,15 @@ public class alarmFragment extends AppCompatActivity {
             public void onClick(View view) {
                 int position = mViewPager.getCurrentItem();
                 mSectionsPagerAdapter.DestroyItem(position);
+                for (int pos = position; pos < items.size(); pos++){
+                    items.remove(pos);
+                    try {
+                        String temp = items.get(pos + 1);
+                        items.set(pos, temp);
+                    } catch (Exception e) { }
+                }
+                mSectionsPagerAdapter.notifyDataSetChanged();
+                mSectionsPagerAdapter.getCount();
             }
         });
 
@@ -102,7 +111,9 @@ public class alarmFragment extends AppCompatActivity {
             Object objectobject = this.instantiateItem(mViewPager, position);
             if (objectobject != null)
                 destroyItem(mViewPager, position, objectobject);
-                //TODO Create a FOR loop to rearrange the items in the list after an item has been removed.;
+                items.remove(position-1);
+                //TODO Create a FOR loop to rearrange the items in the list after an item has been removed. Possibly using ListIterator.;
+
                 notifyDataSetChanged();
                 /*
                 getCount();
@@ -128,7 +139,6 @@ public class alarmFragment extends AppCompatActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             super.destroyItem(container, position, object);
-            notifyDataSetChanged();
             }
 
 
