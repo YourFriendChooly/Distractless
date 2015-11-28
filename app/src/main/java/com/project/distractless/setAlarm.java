@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -29,16 +30,6 @@ public class setAlarm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_alarm);
-        /*
-        The following sets up the Intent structure to launch the To-Do fragment activity at the user
-        specified time. Consists of a pending intent Class to make the intent known regardless of if
-        the app is active or not.
-         */
-        final Intent intent = new Intent(getApplicationContext(), alarmFragment.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        intent.setAction(Intent.ACTION_MAIN);
-        final PendingIntent pendingIntent = PendingIntent.getActivity
-                (getApplicationContext(), REQUEST_CODE, intent, 0);
 
         /*
         Class declarations:
@@ -50,28 +41,27 @@ public class setAlarm extends AppCompatActivity {
                 findViewById(R.id.timePicker);
         final AlarmManager alarmManager = (AlarmManager)
                 getSystemService(ALARM_SERVICE);
-        final Button setAlarm = (Button) findViewById(R.id.b_setAlarm);
 
-        /*
-        Buttons onClickListener will change the background of the button, and parse the
+        /*Create Toolbar,
+        Forward click will change the background of the button, and parse the
         user-selected time to a format that can be understood by the alarmManager via the
         Calendar class and corresponding methods.
         alarmManager is set to RTC_WAKEUP which will wake the phone up if it is sleeping,
         and execute the pendingIntent to launch the To-Do Fragment activity.
          */
-        setAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.todo_toolbar);
+        toolbar.setTitle("Set Start Time");
+        toolbar.inflateMenu(R.menu.todo_toolbar);
+        toolbar.findViewById(R.id.forward)
+                .setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  runCheck();
+                  setAlarm(timePicker, alarmManager);
+              }
+          });
+    }
 
-                setAlarm.getBackground().setColorFilter
-                        (getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-                calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-                alarmManager.set
-                        (AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                exitReveal();
-            }
 
             /*
             Kiosk mode will be enabled while the To-Do fragment is running, effectivly locking out
@@ -81,36 +71,35 @@ public class setAlarm extends AppCompatActivity {
             //TODO Code the "Timeout" feature for the Kiosk Mode portion of the Application.
             //TODO Code a "New password after completion?" feature to change password at next config run.
 
-        });}
-
     /*
     exitRevel creates a circular reveal animation for transition from activity to activity.
     it reads the screen size, and determines the center of the screen, for it's start and end
     parameters.
      */
-    void exitReveal() {
-        final View mTransition = findViewById(R.id.setAlarmLayout);
-        //Get Center of screen for clip
-        int cx = mTransition.getMeasuredWidth()/2;
-        int cy = mTransition.getMeasuredHeight()/2;
-        //get final radius of clipping circle
-        int finalRadius = Math.max(mTransition.getWidth(), mTransition.getHeight())/2;
-        //Create an Animator for the view
-        Animator anim =
-                ViewAnimationUtils.createCircularReveal(mTransition, cx, cy, finalRadius, 0);
-        anim.addListener(new AnimatorListenerAdapter() {
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                //mTransition.setVisibility(View.INVISIBLE);
-                startActivity(new Intent(setAlarm.this, ToDoList.class));
-                //TODO Set boolean for next activity to determine if it's app first run.
-            }
-        });
-        anim.setInterpolator(new AccelerateDecelerateInterpolator());
-        anim.setDuration(550);
-        anim.start();
+    public void setAlarm(TimePicker timePicker, AlarmManager alarmManager){
+         /*
+        The following sets up the Intent structure to launch the To-Do fragment activity at the user
+        specified time. Consists of a pending intent Class to make the intent known regardless of if
+        the app is active or not.
+         */
+        final Intent intent = new Intent(getApplicationContext(), alarmFragment.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.setAction(Intent.ACTION_MAIN);
+        final PendingIntent pendingIntent = PendingIntent.getActivity
+                (getApplicationContext(), REQUEST_CODE, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+        calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+        alarmManager.set
+                (AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
     }
+
+    public void runCheck(){
+        startActivity(new Intent(setAlarm.this, ToDoList.class));
+    }
+
 }
+
 

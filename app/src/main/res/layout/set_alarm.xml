@@ -3,31 +3,24 @@
     android:layout_height="fill_parent" android:background="#0099cc"
     tools:context="com.project.distractless.setAlarm"
     android:orientation="vertical"
-    android:id="@+id/setAlarmLayout">
+    android:id="@+id/setAlarmLayout"
+    android:backgroundTint="@color/colorPrimary">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/setTime"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:background="@color/colorAccent" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/alarm_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        />
 
     <TimePicker
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:id="@+id/timePicker"
 
         />
 
-    <Button
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/b_setAlarm"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/ic_thumb_up_24dp"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:layout_marginTop="40dp" />
 </LinearLayout>

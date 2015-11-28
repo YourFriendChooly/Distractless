@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class alarmFragment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_fragment);
         File filesDir = getFilesDir();
@@ -43,12 +45,9 @@ public class alarmFragment extends AppCompatActivity {
             items = new ArrayList<String>();
         }
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        final ToDoFragment pf = new ToDoFragment();
 
         /*
         FloatingActionButton fab serves as an icon to mark a task as complete. The following
@@ -58,17 +57,16 @@ public class alarmFragment extends AppCompatActivity {
         runFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = mViewPager.getCurrentItem();
-                mSectionsPagerAdapter.DestroyItem(position);
-                for (int pos = position; pos < items.size(); pos++){
-                    items.remove(pos);
-                    try {
-                        String temp = items.get(pos + 1);
-                        items.set(pos, temp);
-                    } catch (Exception e) { }
-                }
+                int mViewPagerCurrentItem = mViewPager.getCurrentItem();
+                Fragment newFragment = pf.newInstance(mViewPagerCurrentItem);
+                items.remove(mViewPagerCurrentItem);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.container, newFragment);
+
+                mSectionsPagerAdapter.DestroyItem(mViewPagerCurrentItem);
                 mSectionsPagerAdapter.notifyDataSetChanged();
-                mSectionsPagerAdapter.getCount();
+                ft.commit();
+                mViewPager.setAdapter(mSectionsPagerAdapter);
             }
         });
 
@@ -101,38 +99,26 @@ public class alarmFragment extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public void DestroyItem(int position){
-            Object objectobject = this.instantiateItem(mViewPager, position);
+        public void DestroyItem(int posit){
+            Object objectobject = this.instantiateItem(mViewPager, posit);
             if (objectobject != null)
-                destroyItem(mViewPager, position, objectobject);
-                items.remove(position-1);
+                destroyItem(mViewPager, posit, objectobject);
                 //TODO Create a FOR loop to rearrange the items in the list after an item has been removed. Possibly using ListIterator.;
-
-                notifyDataSetChanged();
-                /*
-                getCount();
-                if (position+1 <= items.size() && items.size() != 1){
-                    mViewPager.setCurrentItem(position+1, true);
-                }
-                if (position-1 != 0){
-                    mViewPager.setCurrentItem(position-1, true);
-                }
-                */
-                }
+         }
 
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            PlaceholderFragment fragReturn = new PlaceholderFragment();
-            return fragReturn.newInstance(position+1);
+            ToDoFragment fragReturn = new ToDoFragment();
+            return fragReturn.newInstance(position);
         }
 
 
@@ -140,6 +126,12 @@ public class alarmFragment extends AppCompatActivity {
         public void destroyItem(ViewGroup container, int position, Object object) {
             super.destroyItem(container, position, object);
             }
+
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
 
 
         @Override
@@ -153,10 +145,8 @@ public class alarmFragment extends AppCompatActivity {
 
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+
+    public static class ToDoFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -168,12 +158,13 @@ public class alarmFragment extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public ToDoFragment newInstance(int sectionNumber) {
+            ArrayList<String> instanceItems = items;
+            ToDoFragment fragment = new ToDoFragment();
             String sectionString = String.valueOf(sectionNumber);
             Bundle args = new Bundle();
             args.putString(ARG_SECTION_NUMBER, sectionString);
-            args.putString(ARG_LIST_CONTENTS, items.get(sectionNumber - 1));
+            args.putString(ARG_LIST_CONTENTS, instanceItems.get(sectionNumber));
             fragment.setArguments(args);
             int fragID = fragment.getId();
             args.putInt(ARG_FRAG_ID, fragID);
@@ -184,9 +175,8 @@ public class alarmFragment extends AppCompatActivity {
 
 
         }
-        FragmentManager mFragmentManager = getFragmentManager();
 
-        public PlaceholderFragment() {
+        public ToDoFragment() {
         }
 
         @Override

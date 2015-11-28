@@ -39,6 +39,12 @@ public class ToDoList extends ActionBarActivity
         Run Check to see if there is an existing to-do-list stored locally on the phone. If it
         is present, prompt the user to either load the old to-do list or create a new one.
          */
+        ListView lvItems = (ListView) findViewById(R.id.lvItems);
+        items = new ArrayList<String>();
+        itemsAdapter = new ArrayAdapter<String>
+                (ToDoList.this, android.R.layout.simple_list_item_1, items);
+        lvItems.setAdapter(itemsAdapter);
+
         if (readItems()){
             AlertDialog.Builder loadPrompt = new AlertDialog.Builder(ToDoList.this);
             loadPrompt.setTitle("Previous To-Do List Found");
@@ -48,12 +54,14 @@ public class ToDoList extends ActionBarActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     items.clear();
+                    writeItems();
                 }
             });
             loadPrompt.setNegativeButton("LOAD LIST", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     readItems();
+                    itemsAdapter.addAll(items);
                     itemsAdapter.notifyDataSetChanged();
                 }
             });
@@ -76,12 +84,8 @@ public class ToDoList extends ActionBarActivity
             }
         });
 
-        ListView lvItems = (ListView) findViewById(R.id.lvItems);
-        readItems();
-        items = new ArrayList<String>();
-        itemsAdapter = new ArrayAdapter<String>
-                (ToDoList.this, android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
+
+
 
         /*
         Floating Action Button creates a dialogue to enter items to the to-do-list.
@@ -148,10 +152,10 @@ public class ToDoList extends ActionBarActivity
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
-            items = new ArrayList<String>(FileUtils.readLines(todoFile));
+            items = new ArrayList<>(FileUtils.readLines(todoFile));
             return true;
         } catch (IOException e) {
-            items = new ArrayList<String>();
+            //items = new ArrayList<>();
             return false;
         }
 

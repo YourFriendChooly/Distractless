@@ -20,4 +20,6 @@
     <string name="title_activity_to_do_list1">Enter Items</string>
     <string name="title_activity_tempto_do_list">Create Your List!</string>
     <string name="next">Next!</string>
+    <string name="title_activity_alarm_fragment2">alarmFragment2</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
