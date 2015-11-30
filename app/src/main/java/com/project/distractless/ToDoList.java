@@ -28,23 +28,21 @@ public class ToDoList extends ActionBarActivity
     public static ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_do_list);
-
         /*
         Run Check to see if there is an existing to-do-list stored locally on the phone. If it
         is present, prompt the user to either load the old to-do list or create a new one.
          */
         ListView lvItems = (ListView) findViewById(R.id.lvItems);
-        items = new ArrayList<String>();
-        itemsAdapter = new ArrayAdapter<String>
+        readItems();
+        items = new ArrayList<>();
+        itemsAdapter = new ArrayAdapter<>
                 (ToDoList.this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
-
         if (readItems()){
             AlertDialog.Builder loadPrompt = new AlertDialog.Builder(ToDoList.this);
             loadPrompt.setTitle("Previous To-Do List Found");
@@ -54,7 +52,6 @@ public class ToDoList extends ActionBarActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     items.clear();
-                    writeItems();
                 }
             });
             loadPrompt.setNegativeButton("LOAD LIST", new DialogInterface.OnClickListener() {
@@ -80,6 +77,7 @@ public class ToDoList extends ActionBarActivity
         toolbar.findViewById(R.id.forward).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                writeItems();
                 runCheck();
             }
         });
@@ -111,10 +109,14 @@ public class ToDoList extends ActionBarActivity
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        itemsAdapter.add(input.getText().toString());
+                        String itemText = input.getText().toString();
+                        itemsAdapter.add(itemText);
                         itemsAdapter.notifyDataSetChanged();
+                        items.add(itemText);
                         input.setText("");
                         writeItems();
+
+
                     }
                 });
                 builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -153,9 +155,13 @@ public class ToDoList extends ActionBarActivity
         File todoFile = new File(filesDir, "todo.txt");
         try {
             items = new ArrayList<>(FileUtils.readLines(todoFile));
-            return true;
+            if (items.size() > 0)
+                return true;
+            else
+                items = new ArrayList<>();
+                return false;
         } catch (IOException e) {
-            //items = new ArrayList<>();
+            items = new ArrayList<>();
             return false;
         }
 
@@ -167,6 +173,7 @@ public class ToDoList extends ActionBarActivity
         File todoFile = new File(filesDir, "todo.txt");
         try {
             FileUtils.writeLines(todoFile, items);
+            items.size();
         } catch (IOException e) {
             e.printStackTrace();
         }

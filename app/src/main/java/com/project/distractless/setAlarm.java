@@ -49,10 +49,10 @@ public class setAlarm extends AppCompatActivity {
         alarmManager is set to RTC_WAKEUP which will wake the phone up if it is sleeping,
         and execute the pendingIntent to launch the To-Do Fragment activity.
          */
-        Toolbar toolbar = (Toolbar) findViewById(R.id.todo_toolbar);
-        toolbar.setTitle("Set Start Time");
-        toolbar.inflateMenu(R.menu.todo_toolbar);
-        toolbar.findViewById(R.id.forward)
+        Toolbar setAlarmbar = (Toolbar) findViewById(R.id.alarm_toolbar);
+        setAlarmbar.setTitle("Set Start Time");
+        setAlarmbar.inflateMenu(R.menu.todo_toolbar);
+        setAlarmbar.findViewById(R.id.forward)
                 .setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {

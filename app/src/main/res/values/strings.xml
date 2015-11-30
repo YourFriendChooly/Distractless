@@ -21,5 +21,8 @@
     <string name="title_activity_tempto_do_list">Create Your List!</string>
     <string name="next">Next!</string>
     <string name="title_activity_alarm_fragment2">alarmFragment2</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="disctractless">Distractless.</string>
+    <string name="tagline">Remove Your Obstacles</string>
+    <string name="getstarted">Let\'s Get Started</string>
+    <string name="showfirstrun">Show Setup Assistant</string>
 </resources>

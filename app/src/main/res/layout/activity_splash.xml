@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.project.distractless.Splash">
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="1dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/getstarted"
+                android:id="@+id/b_splash_next"
+                style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                android:background="@color/colorPrimaryDark" />
+
+            <Switch
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/showfirstrun"
+                android:id="@+id/sw_runass"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <TextureView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/textureView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/frameLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/disctractless"
+            android:id="@+id/textView"
+            android:layout_gravity="center"
+            android:textSize="50dp"
+            android:typeface="sans"
+            android:fontFamily="sans-serif-thin"  />
+
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/tagline"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignStart="@+id/frameLayout"
+        android:textColor="@color/accent_material_light" />
+
+</RelativeLayout>
