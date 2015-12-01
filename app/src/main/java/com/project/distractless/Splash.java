@@ -22,7 +22,7 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
     SharedPreferences runAssistant;
 
     String assistantKey = "KEY";
-    boolean setRunAssistant;
+    public static boolean setRunAssistant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,8 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Splash.this, MainActivity.class);
-                startActivity(intent);
-                //TODO Boolean runcheck goes here
+                RunCheck rc = new RunCheck();
+                rc.ActivitySwitch(Splash.this, MainActivity.class, FirstLaunchPrompt.class);
             }
         });
         Switch runAss = (Switch) findViewById(R.id.sw_runass);
