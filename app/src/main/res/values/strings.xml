@@ -18,48 +18,40 @@
     <string name="title_activity_alarm_fragment">alarmFragment</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_to_do_list1">Enter Items</string>
-    <string name="toolbarTitleTodo">Create Your List!</string>
+    <string name="title_activity_tempto_do_list">Create Your List!</string>
     <string name="next">Next!</string>
+    <string name="title_activity_alarm_fragment2">alarmFragment2</string>
     <string name="disctractless">Distractless.</string>
     <string name="tagline">Remove Your Obstacles</string>
     <string name="getstarted">Let\'s Get Started</string>
     <string name="showfirstrun">Show Setup Assistant</string>
-    <string name="promptTimeout">Focus Mode Timeout</string>
-    <string name="promptTimeoutHint">4 hrs</string>
-    <string name="bRunNow">Or Run Immediately</string>
 
-    <string name="txtFocusMode">Focus Mode frees you from distractions by disabling certain features of your phone while you work.\n
-    To prevent abuse, this powerful feature requires a timeout that will default at a Maximum length of 4 hours.</string>
-    
+
     <string name="txtFirstLaunchPrompt">Welcome to Distractless, the App designed to help you become more productive!\n\n\n
                                         Would you like some help getting started?</string>
     
     <string name="butWithTutorial">Yes Please!</string>
     
     <string name="butWithoutTutorial">Nah, I got this!</string>
-
     <string name="txtPinTutorial">Distractless uses a 6 digit pin to help limit procrastination.
                                 Avoid easy to guess pins, especially
-                                when setting one up for someone else.\n\n\n\n\n
+                                when setting one up for someone else.\n\n\n\nTip: Avoid using
+                                123456, it\'s not  the 1980\'s!</string>
 
-                                Tip: Avoid using 123456, it\'s not  the 1980\'s!</string>
+    <string name="txtTimerTutorial">Distractless can enter focus mode in one of two ways, either at a set time,
+                                    or as soon as you make your list.\n\n\n\nSimply pick the time you want focus mode to start,
+                                    or press the MAKE A BUTTON button to start focus mode as soon as you\'re ready.</string>
 
-    <string name="txtTimerTutorial">Distractless can start in two ways, either immediately or at a set time.
-                                    Simply select the hour or minute then set the start time.
-
-                                    \n\n\n\n\nThe duration can also be set, but more on that later!</string>
-
-    <string name="txtToDoTutorial">Now it\'s time to make your list!\n\n\nNew items can be added by pressing the yellow plus sign. Once
+    <string name="txtToDoTutorial">Now it\'s time to make your list!\n\n\n\nNew items can be added by pressing the yellow plus sign. Once
                                    you are finished making your list, press the Next Arrow in the top right.</string>
 
     <string name="txtDurationTutorial">Great! we\'re almost there, all we need to do now is choose how long
                                     Distractless will be active. Whether you need an few hours of focus to finish that essay,
                                     or a few minutes to tidy up, Distractless can be set to meet your needs!</string>
 
-    <string name="txtFinalTutorial">Look at that, we made it! Nothing left to do now but be productive! Distractless
-                                    will now start at the scheduled time, or right now depending on what options you chose.\n\n\n\n
-
-                                    Something something something</string>
+    <string name="txtFinalTutorial">Look at that, we made it! Nothing left to do now but be productive! Focus mode
+                                    will now start at the scheduled time, or right now depending on what options you chose.
+                                    \n\n\n\nTODO INSTRUCTIONS ON HOW TO EDIT</string>
     <string name="butFinalTutorial">Thanks for the help!</string>
 
     <string name="butTutorialOkay">Okay, got it!</string>
