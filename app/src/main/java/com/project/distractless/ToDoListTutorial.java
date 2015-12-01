@@ -23,7 +23,7 @@ public class ToDoListTutorial extends AppCompatActivity {
         butToDoTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ToDoList.this, ToDoList.class));
+                //startActivity(new Intent(ToDoList.this, ToDoList.class));
             }
 
         });

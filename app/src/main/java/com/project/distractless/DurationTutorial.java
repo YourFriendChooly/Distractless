@@ -24,7 +24,7 @@ public class DurationTutorial extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(DurationTutorial.this, Duration.class));
+                //startActivity(new Intent(DurationTutorial.this, Duration.class));
             }
         });
     }

@@ -27,6 +27,7 @@ public class ToDoList extends ActionBarActivity
 {
     public static ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
+    public static boolean runNow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

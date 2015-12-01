@@ -23,4 +23,59 @@
 
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bRunNow"
+            android:id="@+id/b_RunNow"
+            style="@style/Base.Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:baselineAligned="false">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/promptTimeout"
+                android:id="@+id/textView3"
+                android:layout_marginRight="22sp"
+                android:textAlignment="gravity"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:layout_marginBottom="2sp" />
+
+            <EditText
+                android:layout_width="116dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/t_focusTimeout"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:hint="@string/promptTimeoutHint"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtFocusMode"
+            android:id="@+id/textView4"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-light"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="15sp" />
+
+    </LinearLayout>
+
 </LinearLayout>

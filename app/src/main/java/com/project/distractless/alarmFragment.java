@@ -29,10 +29,14 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class alarmFragment extends AppCompatActivity {
 
-
+    public static int timeout = 4;
     private static SectionsPagerAdapter mSectionsPagerAdapter;
     static ArrayList<String> items;
     static int numComplete = 0;
@@ -59,9 +63,19 @@ public class alarmFragment extends AppCompatActivity {
 
 
         /*
-        Calling KioskMode
+        Calling KioskMode and setting timer for kiosk de-activation.
          */
+        Timer lockTimeout = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+            stopLockTask();
+            }
+        };
+        lockTimeout.schedule(task, TimeUnit.HOURS.toMillis(timeout));
         startLockTask();
+
+
 
         /*
         FloatingActionButton fab serves as an icon to mark a task as complete. The following
