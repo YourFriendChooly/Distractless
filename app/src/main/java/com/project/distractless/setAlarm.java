@@ -114,7 +114,7 @@ public class setAlarm extends AppCompatActivity {
     it reads the screen size, and determines the center of the screen, for it's start and end
     parameters.
      */
-
+    //Test
     public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, boolean runNow){
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
