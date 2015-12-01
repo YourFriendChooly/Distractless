@@ -8,12 +8,17 @@ import android.content.Intent;
  * Created by OBEY-YOSEMITE on 15-11-30.
  */
 public class RunCheck extends Activity {
-    public void ActivitySwitch(Context context, Class mainClass, Class altClass){
-        if (Splash.setRunAssistant){
+
+    public static boolean setRunAssistant = false;
+
+    public static Intent ActivitySwitch(Context context, Class mainClass, Class altClass) {
+        if (!setRunAssistant) {
             Intent intent = new Intent(context, mainClass);
-            startActivity(intent);
-        } else { Intent intent = new Intent(context, altClass);
-            startActivity(intent); }
+            return intent;
+        } else {
+            Intent intent = new Intent(context, altClass);
+            return intent;
+        }
 
     }
 }
