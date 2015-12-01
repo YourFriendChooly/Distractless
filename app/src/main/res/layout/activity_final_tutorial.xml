@@ -13,10 +13,15 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/txtFinalTutorial"
         android:id="@+id/txtFinalTutorial"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="20sp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="76dp" />
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="42sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"/>
 
     <Button
         android:layout_width="wrap_content"
