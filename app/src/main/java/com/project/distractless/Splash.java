@@ -49,7 +49,7 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
                 } else {
                     setRunAssistant = false;
                 }
-                runAssistant.edit().putBoolean(assistantKey, setRunAssistant);
+                runAssistant.edit().putBoolean(assistantKey, setRunAssistant).commit();
             }
         });
 
