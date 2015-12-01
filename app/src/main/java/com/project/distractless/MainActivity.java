@@ -17,16 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
     //String for passwordFile
     public static final String KEY = "KeyFile";
-    public static final String RUNCHECK = "RunCheck"; //Does not necessarily need to be declared
-    // again, if you use the string's value "RunCheck" in the getBoolean statement
     String keyInstance;
     TextView keyView;
     TextView keyPrompt;
     String keyEntry = "";
     SharedPreferences keyStore;
-    SharedPreferences runCheck; //RunCheck needs to be declared for boolean check to function
     Boolean noKey;
-    Boolean runInstance; //RunInstance provides us with a statement we can then use our if-else statement with.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +42,6 @@ public class MainActivity extends AppCompatActivity {
         keyView = (TextView) findViewById(R.id.keyView);
         keyStore = getSharedPreferences(KEY, 0);
         keyInstance = keyStore.getString("keyValue", "a");
-
-        //RunCheck will get the data stored in RUNCHECK (or it's value RunCheck, declared above)
-        runCheck = getSharedPreferences(RUNCHECK, 0);
-        //runInstance will get the boolean contents of RunCheck. runInstance will then be used for
-        //our comparitor.
-        runInstance = runCheck.getBoolean("RunCheck", false);
 
         //The following will adjust the keyPrompt output depending on if keyInstance pulls the
         //default value from keyStore or not.
