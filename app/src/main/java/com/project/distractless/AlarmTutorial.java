@@ -27,7 +27,7 @@ public class AlarmTutorial extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(AlarmTutorial.this, SetAlarmtemp.class));
+                startActivity(new Intent(AlarmTutorial.this, SetAlarm.class));
             }
         });
     }

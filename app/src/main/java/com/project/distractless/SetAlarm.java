@@ -14,12 +14,12 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 /*
-SetAlarmtemp
+SetAlarm
 Function: Allows the user to select a time for the app's "Lockdown" mode to run, and the maximum
 elapsed time before the "Lockdown" mode is de-activated.
  */
 
-public class SetAlarmtemp extends AppCompatActivity {
+public class SetAlarm extends AppCompatActivity {
 
     //REQUEST_CODE is an arbitrary value, but necessary according to resources.
     public static final int REQUEST_CODE = 0;
@@ -34,7 +34,7 @@ public class SetAlarmtemp extends AppCompatActivity {
         Class declarations:
         TimePicker timePicker for setting the Alarm
         AlarmManager alarmManager for controlling the alarm (utilizing the pendingIntent)
-        Button SetAlarmtemp to confirm and commit the Alarm
+        Button SetAlarm to confirm and commit the Alarm
          */
         final TimePicker timePicker = (TimePicker)
                 findViewById(R.id.timePicker);
@@ -65,9 +65,9 @@ public class SetAlarmtemp extends AppCompatActivity {
               public void onClick(View v) {
                   setAlarm(timePicker, alarmManager, runNow);
                   if (focusTimeout != null)
-                  AlarmFragmenttemp.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
                   RunCheck rc = new RunCheck();
-                  Intent intent = rc.ActivitySwitch(SetAlarmtemp.this, ToDoList.class, ToDoListTutorial.class);
+                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, ToDoListTutorial.class);
                   startActivity(intent);
               }
           });
@@ -79,7 +79,7 @@ public class SetAlarmtemp extends AppCompatActivity {
         bRunNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(SetAlarmtemp.this);
+            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(SetAlarm.this);
                 usrConfirm.setTitle("Confirm Selection");
                 usrConfirm.setMessage("You've selected to run the list in focus mode as soon as it" +
                         " has been created, is that right?");
@@ -117,7 +117,7 @@ public class SetAlarmtemp extends AppCompatActivity {
          */
 
         if (!runNow){
-        final Intent intent = new Intent(getApplicationContext(), AlarmFragmenttemp.class);
+        final Intent intent = new Intent(getApplicationContext(), AlarmFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.setAction(Intent.ACTION_MAIN);
         final PendingIntent pendingIntent = PendingIntent.getActivity
@@ -136,7 +136,7 @@ public class SetAlarmtemp extends AppCompatActivity {
 
 
     public void runCheck(){
-        startActivity(new Intent(SetAlarmtemp.this, ToDoList.class));
+        startActivity(new Intent(SetAlarm.this, ToDoList.class));
     }
 
 }

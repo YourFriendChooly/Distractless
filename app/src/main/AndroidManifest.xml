@@ -26,7 +26,7 @@
 
         </activity>
         <activity android:name=".ToDoList" />
-        <activity android:name=".SetAlarmtemp" />
+        <activity android:name=".SetAlarm" />
 
         <activity android:name=".AlarmTutorial" />
         <activity android:name=".PinTutorial" />
@@ -34,7 +34,7 @@
         <activity android:name=".FinalTutorial" />
 
         <activity
-            android:name=".AlarmFragmenttemp"
+            android:name=".AlarmFragment"
             android:label="@string/title_activity_alarm_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Splash"

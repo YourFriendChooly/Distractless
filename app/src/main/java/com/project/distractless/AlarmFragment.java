@@ -31,7 +31,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class AlarmFragmenttemp extends AppCompatActivity {
+public class AlarmFragment extends AppCompatActivity {
 
     public static int timeout = 4;
     private static SectionsPagerAdapter mSectionsPagerAdapter;
