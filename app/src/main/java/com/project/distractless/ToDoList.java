@@ -3,12 +3,9 @@ package com.project.distractless;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
@@ -79,7 +76,10 @@ public class ToDoList extends ActionBarActivity
             @Override
             public void onClick(View v) {
                 writeItems();
-                runCheck();
+                RunCheck rc = new RunCheck();
+                Intent intent = rc.ActivitySwitch(ToDoList.this, FinalTutorial.class, FinalTutorial.class);
+                startActivity(intent);
+
             }
         });
 
@@ -136,18 +136,10 @@ public class ToDoList extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.forward:
-                runCheck();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void runCheck(){
-        //TODO CODE THE INTENT IF/ELSE FOR IF ACTIVITY HAS BEEN RUN AND DIRECT FLOW.
-        //TODO Add "Run assistant at next launch" checkbox in 'advanced settings.'
-        //Alarm Fragment.class will be changed to the advanced settings menu, once it has been created.
-        startActivity(new Intent(ToDoList.this, alarmFragment.class));
     }
 
     public boolean readItems()

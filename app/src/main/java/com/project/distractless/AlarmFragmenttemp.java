@@ -1,9 +1,7 @@
 package com.project.distractless;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -29,12 +27,11 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class alarmFragment extends AppCompatActivity {
+public class AlarmFragmenttemp extends AppCompatActivity {
 
     public static int timeout = 4;
     private static SectionsPagerAdapter mSectionsPagerAdapter;
@@ -131,7 +128,7 @@ public class alarmFragment extends AppCompatActivity {
 
     public void completedCheck(int completed){
             if (completed == items.size()){
-                Intent completedIntent = new Intent(this, MainActivity.class);
+                Intent completedIntent = new Intent(this, Pin.class);
                 startActivity(completedIntent);
             }
     }

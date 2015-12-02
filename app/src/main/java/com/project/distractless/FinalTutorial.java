@@ -17,10 +17,10 @@ public class FinalTutorial extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer_tutorial);
+        setContentView(R.layout.activity_final_tutorial);
 
-        txtFinalTutorial = (TextView) findViewById(R.id.txtToDoTutorial);
-        butFinalTutorial = (Button) findViewById(R.id.butToDoTutorial);
+        txtFinalTutorial = (TextView) findViewById(R.id.txtFinalTutorial);
+        butFinalTutorial = (Button) findViewById(R.id.butFinalTutorial);
 
         butFinalTutorial.setOnClickListener(new View.OnClickListener()
         {
@@ -28,7 +28,7 @@ public class FinalTutorial extends AppCompatActivity
             public void onClick(View v)
             {
                 //TODO Change shared preferences to not run tutorial
-                startActivity(new Intent(FinalTutorial.this, MainActivity.class));
+                startActivity(new Intent(FinalTutorial.this, Pin.class));
             }
         });
     }

@@ -15,7 +15,7 @@ public class ToDoListTutorial extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timer_tutorial);
+        setContentView(R.layout.activity_to_do_list_tutorial);
 
         txtToDoTutorial = (TextView) findViewById(R.id.txtToDoTutorial);
         butToDoTutorial = (Button) findViewById(R.id.butToDoTutorial);

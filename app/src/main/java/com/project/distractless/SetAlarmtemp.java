@@ -1,31 +1,25 @@
 package com.project.distractless;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import java.util.Calendar;
-import java.util.Timer;
 
 /*
-SetAlarm
+SetAlarmtemp
 Function: Allows the user to select a time for the app's "Lockdown" mode to run, and the maximum
 elapsed time before the "Lockdown" mode is de-activated.
  */
 
-public class setAlarm extends AppCompatActivity {
+public class SetAlarmtemp extends AppCompatActivity {
 
     //REQUEST_CODE is an arbitrary value, but necessary according to resources.
     public static final int REQUEST_CODE = 0;
@@ -40,7 +34,7 @@ public class setAlarm extends AppCompatActivity {
         Class declarations:
         TimePicker timePicker for setting the Alarm
         AlarmManager alarmManager for controlling the alarm (utilizing the pendingIntent)
-        Button setAlarm to confirm and commit the Alarm
+        Button SetAlarmtemp to confirm and commit the Alarm
          */
         final TimePicker timePicker = (TimePicker)
                 findViewById(R.id.timePicker);
@@ -71,9 +65,9 @@ public class setAlarm extends AppCompatActivity {
               public void onClick(View v) {
                   setAlarm(timePicker, alarmManager, runNow);
                   if (focusTimeout != null)
-                  alarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  AlarmFragmenttemp.timeout = Integer.parseInt(focusTimeout.getText().toString());
                   RunCheck rc = new RunCheck();
-                  Intent intent = rc.ActivitySwitch(setAlarm.this, ToDoList.class, ToDoListTutorial.class);
+                  Intent intent = rc.ActivitySwitch(SetAlarmtemp.this, ToDoList.class, ToDoListTutorial.class);
                   startActivity(intent);
               }
           });
@@ -85,7 +79,7 @@ public class setAlarm extends AppCompatActivity {
         bRunNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(setAlarm.this);
+            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(SetAlarmtemp.this);
                 usrConfirm.setTitle("Confirm Selection");
                 usrConfirm.setMessage("You've selected to run the list in focus mode as soon as it" +
                         " has been created, is that right?");
@@ -117,14 +111,13 @@ public class setAlarm extends AppCompatActivity {
 
     public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, boolean runNow){
          /*
-         test again
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
         specified time. Consists of a pending intent Class to make the intent known regardless of if
         the app is active or not. If boolean runNow is true, no alarm will be set.
          */
 
         if (!runNow){
-        final Intent intent = new Intent(getApplicationContext(), alarmFragment.class);
+        final Intent intent = new Intent(getApplicationContext(), AlarmFragmenttemp.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.setAction(Intent.ACTION_MAIN);
         final PendingIntent pendingIntent = PendingIntent.getActivity
@@ -143,7 +136,7 @@ public class setAlarm extends AppCompatActivity {
 
 
     public void runCheck(){
-        startActivity(new Intent(setAlarm.this, ToDoList.class));
+        startActivity(new Intent(SetAlarmtemp.this, ToDoList.class));
     }
 
 }

@@ -22,13 +22,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Pin">
 
         </activity>
         <activity android:name=".ToDoList" />
-        <activity android:name=".setAlarm" />
+        <activity android:name=".SetAlarmtemp" />
+
+        <activity android:name=".AlarmTutorial" />
+        <activity android:name=".PinTutorial" />
+        <activity android:name=".ToDoListTutorial" />
+        <activity android:name=".FinalTutorial" />
+
         <activity
-            android:name=".alarmFragment"
+            android:name=".AlarmFragmenttemp"
             android:label="@string/title_activity_alarm_fragment"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Splash"

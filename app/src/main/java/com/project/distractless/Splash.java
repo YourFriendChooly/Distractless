@@ -35,11 +35,12 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
             @Override
             public void onClick(View v) {
                 RunCheck rc = new RunCheck();
-                //Intent intent = rc.ActivitySwitch(Splash.this, MainActivity.class, FirstLaunchPrompt .class);
-                //startActivity(intent);
+                Intent intent = rc.ActivitySwitch(Splash.this, Pin.class, PinTutorial.class);
+                startActivity(intent);
             }
         });
-        Switch runAss = (Switch) findViewById(R.id.sw_runass);
+        final Switch runAss = (Switch) findViewById(R.id.sw_runass);
+
         runAss.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -50,7 +51,6 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
                 }
             }
         });
-
     }
 
     @Override
