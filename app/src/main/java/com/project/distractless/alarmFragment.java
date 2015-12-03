@@ -1,9 +1,7 @@
 package com.project.distractless;
 
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -29,12 +27,11 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class alarmFragment extends AppCompatActivity {
+public class AlarmFragment extends AppCompatActivity {
 
     public static int timeout = 4;
     private static SectionsPagerAdapter mSectionsPagerAdapter;
@@ -81,6 +78,7 @@ public class alarmFragment extends AppCompatActivity {
         FloatingActionButton fab serves as an icon to mark a task as complete. The following
         fragmentManager will remove the fragment once it has been completed.
          */
+        final int total = items.size();
         final Animation bounce = AnimationUtils.loadAnimation(this, R.anim.zoom);
         FloatingActionButton runFab = (FloatingActionButton) findViewById(R.id.runFab);
         runFab.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +89,7 @@ public class alarmFragment extends AppCompatActivity {
                 thumb.setVisibility(View.VISIBLE);
                 thumb.startAnimation(bounce);
                 thumb.setVisibility(View.INVISIBLE);
-                completedCheck(numComplete);
+                completedCheck(numComplete, total);
             }
         });
         fmanager = getSupportFragmentManager();
@@ -129,9 +127,10 @@ public class alarmFragment extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-    public void completedCheck(int completed){
-            if (completed == items.size()){
-                Intent completedIntent = new Intent(this, MainActivity.class);
+    public void completedCheck(int completed, int total){
+            if (completed == total){
+                Intent completedIntent = new Intent(this, Pin.class);
+                Pin.fromList = true;
                 startActivity(completedIntent);
             }
     }

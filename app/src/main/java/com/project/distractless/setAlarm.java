@@ -25,7 +25,7 @@ Function: Allows the user to select a time for the app's "Lockdown" mode to run,
 elapsed time before the "Lockdown" mode is de-activated.
  */
 
-public class setAlarm extends AppCompatActivity {
+public class SetAlarm extends AppCompatActivity {
 
     //REQUEST_CODE is an arbitrary value, but necessary according to resources.
     public static final int REQUEST_CODE = 0;
@@ -40,7 +40,7 @@ public class setAlarm extends AppCompatActivity {
         Class declarations:
         TimePicker timePicker for setting the Alarm
         AlarmManager alarmManager for controlling the alarm (utilizing the pendingIntent)
-        Button setAlarm to confirm and commit the Alarm
+        Button SetAlarm to confirm and commit the Alarm
          */
         final TimePicker timePicker = (TimePicker)
                 findViewById(R.id.timePicker);
@@ -71,9 +71,10 @@ public class setAlarm extends AppCompatActivity {
               public void onClick(View v) {
                   setAlarm(timePicker, alarmManager, runNow);
                   if (focusTimeout != null)
-                  alarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
-                  RunCheck rc = new RunCheck();
-                  //Intent intent = rc.ActivitySwitch(setAlarm.this, ToDoList.class, ToDoListTutorial.class);
+                  AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  Tutorial rc = new Tutorial();
+                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
+                  AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
                   startActivity(intent);
               }
           });
@@ -85,7 +86,7 @@ public class setAlarm extends AppCompatActivity {
         bRunNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(setAlarm.this);
+            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(SetAlarm.this);
                 usrConfirm.setTitle("Confirm Selection");
                 usrConfirm.setMessage("You've selected to run the list in focus mode as soon as it" +
                         " has been created, is that right?");
@@ -114,7 +115,7 @@ public class setAlarm extends AppCompatActivity {
     it reads the screen size, and determines the center of the screen, for it's start and end
     parameters.
      */
-    //Test
+
     public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, boolean runNow){
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
@@ -123,7 +124,7 @@ public class setAlarm extends AppCompatActivity {
          */
 
         if (!runNow){
-        final Intent intent = new Intent(getApplicationContext(), alarmFragment.class);
+        final Intent intent = new Intent(getApplicationContext(), AlarmFragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.setAction(Intent.ACTION_MAIN);
         final PendingIntent pendingIntent = PendingIntent.getActivity
@@ -142,7 +143,7 @@ public class setAlarm extends AppCompatActivity {
 
 
     public void runCheck(){
-        startActivity(new Intent(setAlarm.this, ToDoList.class));
+        startActivity(new Intent(SetAlarm.this, ToDoList.class));
     }
 
 }

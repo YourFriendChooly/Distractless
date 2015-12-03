@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class Pin extends AppCompatActivity {
 
     //String for passwordFile
     public static boolean fromList = false;
@@ -158,8 +158,9 @@ public class MainActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 //mTransition.setVisibility(View.INVISIBLE);
-                //startActivity(new Intent(MainActivity.this, setAlarm.class));
-                //TODO Code Next Activity Here, set boolean for next activity to determine if it's app first run.
+                Tutorial tut = new Tutorial();
+                Intent intent = tut.ActivitySwitch(Pin.this, SetAlarm.class, 1);
+                startActivity(intent);
             }
         });
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
