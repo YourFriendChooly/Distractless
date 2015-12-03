@@ -26,13 +26,6 @@
         </activity>
         <activity android:name=".ToDoList" />
         <activity android:name=".SetAlarm" />
-<<<<<<< HEAD
-        <activity android:name=".AlarmTutorial" />
-        <activity android:name=".PinTutorial" />
-        <activity android:name=".ToDoListTutorial" />
-        <activity android:name=".FinalTutorial" />
-=======
->>>>>>> master
         <activity
             android:name=".AlarmFragment"
             android:label="@string/title_activity_alarm_fragment"
