@@ -66,8 +66,8 @@ public class SetAlarm extends AppCompatActivity {
                   setAlarm(timePicker, alarmManager, runNow);
                   if (focusTimeout != null)
                   AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
-                  RunCheck rc = new RunCheck();
-                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, ToDoListTutorial.class);
+                  Tutorial rc = new Tutorial();
+                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
                   startActivity(intent);
               }
           });

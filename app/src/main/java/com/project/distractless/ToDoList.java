@@ -76,8 +76,8 @@ public class ToDoList extends ActionBarActivity
             @Override
             public void onClick(View v) {
                 writeItems();
-                RunCheck rc = new RunCheck();
-                Intent intent = rc.ActivitySwitch(ToDoList.this, FinalTutorial.class, FinalTutorial.class);
+                Tutorial rc = new Tutorial();
+                Intent intent = rc.ActivitySwitch(ToDoList.this, Pin.class, 3);
                 startActivity(intent);
 
             }

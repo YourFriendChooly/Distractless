@@ -153,8 +153,8 @@ public class Pin extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 //mTransition.setVisibility(View.INVISIBLE);
-                RunCheck rc = new RunCheck();
-                Intent intent = rc.ActivitySwitch(Pin.this, SetAlarm.class, AlarmTutorial.class);
+                Tutorial tut = new Tutorial();
+                Intent intent = tut.ActivitySwitch(Pin.this, SetAlarm.class, 1);
                 startActivity(intent);
             }
         });

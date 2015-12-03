@@ -20,6 +20,7 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
 
     MediaPlayer mVideoPlayer;
     SharedPreferences runAssistant;
+    SharedPreferences tutorialCheck;
 
     String assistantKey = "KEY";
 
@@ -34,8 +35,8 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RunCheck rc = new RunCheck();
-                Intent intent = rc.ActivitySwitch(Splash.this, Pin.class, PinTutorial.class);
+                Tutorial tut = new Tutorial();
+                Intent intent = tut.ActivitySwitch(Splash.this, Pin.class, 0);
                 startActivity(intent);
             }
         });
@@ -45,9 +46,9 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    RunCheck.setRunAssistant = true;
+                    Tutorial.setRunAssistant = true;
                 } else {
-                    RunCheck.setRunAssistant = false;
+                    Tutorial.setRunAssistant = false;
                 }
             }
         });

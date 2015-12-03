@@ -5,29 +5,29 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.project.distractless.ToDoListTutorial">
+    tools:context="com.project.distractless.Tutorial">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/txtToDoTutorial"
-        android:id="@+id/txtToDoTutorial"
+        android:text=" "
         android:fontFamily="sans-serif-thin"
         android:textSize="20sp"
-        android:layout_marginTop="38dp"
-        android:textColor="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="42sp"
         android:layout_marginLeft="10sp"
         android:layout_marginRight="10sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="false"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:id="@+id/txtTutorial" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/butTutorialOkay"
-        android:id="@+id/butToDoTutorial"
+        android:text="@string/butTutorial"
+        android:id="@+id/butTutorial"
         android:layout_marginBottom="67dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

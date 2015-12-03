@@ -31,12 +31,7 @@
     <string name="txtFocusMode">Focus Mode frees you from distractions by disabling certain features of your phone while you work.\n
     To prevent abuse, this powerful feature requires a timeout that will default at a Maximum length of 4 hours.</string>
 
-    <string name="txtFirstLaunchPrompt">Welcome to Distractless, the App designed to help you become more productive!\n\n\n
-                                        Would you like some help getting started?</string>
-    
-    <string name="butWithTutorial">Yes Please!</string>
-    
-    <string name="butWithoutTutorial">Nah, I got this!</string>
+    //Tutorial Text and Buttons
     <string name="txtPinTutorial">Distractless uses a 6 digit pin to help limit procrastination.
                                 Avoid easy to guess pins, especially
                                 when setting one up for someone else.\n\n\n\nTip: Avoid using
@@ -58,5 +53,6 @@
                                     \n\n\n\nTODO INSTRUCTIONS ON HOW TO EDIT</string>
     <string name="butFinalTutorial">Thanks for the help!</string>
 
-    <string name="butTutorialOkay">Okay, got it!</string>
+    <string name="butTutorial">Okay, got it!</string>
+    <string name="title_activity_tutorial">Tutorial</string>
 </resources>
