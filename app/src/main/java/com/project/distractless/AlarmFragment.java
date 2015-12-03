@@ -78,6 +78,7 @@ public class AlarmFragment extends AppCompatActivity {
         FloatingActionButton fab serves as an icon to mark a task as complete. The following
         fragmentManager will remove the fragment once it has been completed.
          */
+        final int total = items.size();
         final Animation bounce = AnimationUtils.loadAnimation(this, R.anim.zoom);
         FloatingActionButton runFab = (FloatingActionButton) findViewById(R.id.runFab);
         runFab.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,7 @@ public class AlarmFragment extends AppCompatActivity {
                 thumb.setVisibility(View.VISIBLE);
                 thumb.startAnimation(bounce);
                 thumb.setVisibility(View.INVISIBLE);
-                completedCheck(numComplete);
+                completedCheck(numComplete, total);
             }
         });
         fmanager = getSupportFragmentManager();
@@ -126,9 +127,16 @@ public class AlarmFragment extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
+<<<<<<< HEAD:app/src/main/java/com/project/distractless/AlarmFragment.java
     public void completedCheck(int completed){
             if (completed == items.size()){
                 Intent completedIntent = new Intent(this, Pin.class);
+=======
+    public void completedCheck(int completed, int total){
+            if (completed == total){
+                Intent completedIntent = new Intent(this, Pin.class);
+                Pin.fromList = true;
+>>>>>>> master:app/src/main/java/com/project/distractless/alarmFragment.java
                 startActivity(completedIntent);
             }
     }

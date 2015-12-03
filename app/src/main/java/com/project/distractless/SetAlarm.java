@@ -71,14 +71,11 @@ public class SetAlarm extends AppCompatActivity {
               public void onClick(View v) {
                   setAlarm(timePicker, alarmManager, runNow);
                   if (focusTimeout != null)
-<<<<<<< HEAD:app/src/main/java/com/project/distractless/SetAlarm.java
                   AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
                   Tutorial rc = new Tutorial();
                   Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
-=======
-                  alarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
-                  RunCheck rc = new RunCheck();
-                  //Intent intent = rc.ActivitySwitch(setAlarm.this, ToDoList.class, ToDoListTutorial.class);
+                  AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  Tutorial rc = new Tutorial();
                   startActivity(intent);
               }
           });

@@ -24,8 +24,6 @@ public class Pin extends AppCompatActivity {
     String keyEntry = "";
     SharedPreferences keyStore;
     Boolean noKey;
-<<<<<<< HEAD:app/src/main/java/com/project/distractless/Pin.java
-=======
 
     @Override
     protected void onResume() {
@@ -35,7 +33,6 @@ public class Pin extends AppCompatActivity {
 
         }
     }
->>>>>>> master:app/src/main/java/com/project/distractless/MainActivity.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,14 +158,9 @@ public class Pin extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 //mTransition.setVisibility(View.INVISIBLE);
-<<<<<<< HEAD:app/src/main/java/com/project/distractless/Pin.java
                 Tutorial tut = new Tutorial();
                 Intent intent = tut.ActivitySwitch(Pin.this, SetAlarm.class, 1);
                 startActivity(intent);
-=======
-                //startActivity(new Intent(MainActivity.this, setAlarm.class));
-                //TODO Code Next Activity Here, set boolean for next activity to determine if it's app first run.
->>>>>>> master:app/src/main/java/com/project/distractless/MainActivity.java
             }
         });
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
