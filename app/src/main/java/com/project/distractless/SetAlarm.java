@@ -75,7 +75,6 @@ public class SetAlarm extends AppCompatActivity {
                   Tutorial rc = new Tutorial();
                   Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
                   AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
-                  Tutorial rc = new Tutorial();
                   startActivity(intent);
               }
           });

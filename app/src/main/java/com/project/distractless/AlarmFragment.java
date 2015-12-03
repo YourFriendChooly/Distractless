@@ -127,16 +127,10 @@ public class AlarmFragment extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-<<<<<<< HEAD:app/src/main/java/com/project/distractless/AlarmFragment.java
-    public void completedCheck(int completed){
-            if (completed == items.size()){
-                Intent completedIntent = new Intent(this, Pin.class);
-=======
     public void completedCheck(int completed, int total){
             if (completed == total){
                 Intent completedIntent = new Intent(this, Pin.class);
                 Pin.fromList = true;
->>>>>>> master:app/src/main/java/com/project/distractless/alarmFragment.java
                 startActivity(completedIntent);
             }
     }
