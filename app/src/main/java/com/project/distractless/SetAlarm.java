@@ -65,9 +65,15 @@ public class SetAlarm extends AppCompatActivity {
               public void onClick(View v) {
                   setAlarm(timePicker, alarmManager, runNow);
                   if (focusTimeout != null)
+<<<<<<< HEAD:app/src/main/java/com/project/distractless/SetAlarm.java
                   AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
                   Tutorial rc = new Tutorial();
                   Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
+=======
+                  alarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  RunCheck rc = new RunCheck();
+                  //Intent intent = rc.ActivitySwitch(setAlarm.this, ToDoList.class, ToDoListTutorial.class);
+>>>>>>> master:app/src/main/java/com/project/distractless/setAlarm.java
                   startActivity(intent);
               }
           });
@@ -108,7 +114,7 @@ public class SetAlarm extends AppCompatActivity {
     it reads the screen size, and determines the center of the screen, for it's start and end
     parameters.
      */
-
+    //Test
     public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, boolean runNow){
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
