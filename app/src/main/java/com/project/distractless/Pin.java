@@ -122,6 +122,7 @@ public class Pin extends AppCompatActivity {
             keyEdit.putString("keyValue", keyEntry);
             keyEdit.commit();
             keyEntry = "";
+            exitReveal();
         } else if (!fromList && keyEntry.equals(keyInstance)) {
             keyPrompt.setText("Match!");
             exitReveal();
