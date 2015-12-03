@@ -1,17 +1,23 @@
 package com.project.distractless;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import java.util.Calendar;
+import java.util.Timer;
 
 /*
 SetAlarm
@@ -73,7 +79,6 @@ public class SetAlarm extends AppCompatActivity {
                   alarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
                   RunCheck rc = new RunCheck();
                   //Intent intent = rc.ActivitySwitch(setAlarm.this, ToDoList.class, ToDoListTutorial.class);
->>>>>>> master:app/src/main/java/com/project/distractless/setAlarm.java
                   startActivity(intent);
               }
           });
@@ -114,7 +119,7 @@ public class SetAlarm extends AppCompatActivity {
     it reads the screen size, and determines the center of the screen, for it's start and end
     parameters.
      */
-    //Test
+
     public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, boolean runNow){
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user

@@ -36,7 +36,6 @@ public class Tutorial extends AppCompatActivity {
 
         txtTutorial = (TextView) findViewById(R.id.txtTutorial);
         butTutorial = (Button) findViewById(R.id.butTutorial);
-        TutorialCheck tc = new TutorialCheck();
 
         //Pin Tutorial
         if (setTutorialState == 0){
