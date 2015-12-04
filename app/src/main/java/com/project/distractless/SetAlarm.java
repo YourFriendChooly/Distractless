@@ -102,7 +102,8 @@ public class SetAlarm extends AppCompatActivity {
                         boolean runNow = true;
                     }
                 });
-                usrConfirm.create();
+                AlertDialog dialog = usrConfirm.create();
+                dialog.show();
             }
         });
 

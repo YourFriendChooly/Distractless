@@ -78,12 +78,10 @@ public class AlarmFragment extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-            stopLockTask();
+            PrefUtils.setKioskModeActive(false, getApplicationContext());
             }
         };
         lockTimeout.schedule(task, TimeUnit.HOURS.toMillis(timeout));
-        //startLockTask();
-
 
 
         /*
