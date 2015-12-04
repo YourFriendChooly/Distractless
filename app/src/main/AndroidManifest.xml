@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.distractless" >
+    package="com.project.distractless">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity android:name=".Pin" />
         <activity android:name=".ToDoList" />
         <activity android:name=".SetAlarm" />
@@ -18,24 +23,24 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Splash"
-            android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen" >
+            android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="com.project.distractless.BootReceiver" >
+
+        <receiver android:name=".BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name="com.project.distractless.KioskService" android:exported="false" />
+
+        <service
+            android:name=".KioskService"
+            android:exported="false" />
+
     </application>
-
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.REORDER_TASKS" />
-
 
 </manifest>

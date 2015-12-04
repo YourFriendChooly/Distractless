@@ -3,12 +3,18 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import java.util.Calendar;
@@ -24,6 +30,7 @@ public class SetAlarm extends AppCompatActivity {
     //REQUEST_CODE is an arbitrary value, but necessary according to resources.
     public static final int REQUEST_CODE = 0;
     public static boolean runNow = false;
+    int s = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,8 @@ public class SetAlarm extends AppCompatActivity {
                 getSystemService(ALARM_SERVICE);
         final Button bRunNow = (Button)
                 findViewById(R.id.b_RunNow);
+        final DatePicker datePicker = (DatePicker)
+                findViewById(R.id.datePicker);
 
         /*
         Kiosk mode will be enabled while the To-Do fragment is running, effectivly locking out
@@ -57,27 +66,52 @@ public class SetAlarm extends AppCompatActivity {
         alarmManager is set to RTC_WAKEUP which will wake the phone up if it is sleeping,
         and execute the pendingIntent to launch the To-Do Fragment activity.
          */
+        final Animation scaleOut = AnimationUtils.loadAnimation(this, R.anim.scale_out);
         Toolbar alarmbar = (Toolbar) findViewById(R.id.alarm_toolbar);
         alarmbar.setTitle("Set Start Time");
         alarmbar.inflateMenu(R.menu.todo_toolbar);
         alarmbar.findViewById(R.id.forward).setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  setAlarm(timePicker, alarmManager, runNow);
-                  try {
-                      AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());}
-                  catch (NumberFormatException e){
-                      AlarmFragment.timeout = 4;
+                  switch (s) {
+                      case 0: timePicker.startAnimation(scaleOut);
+                          //TODO Set Calendar Icon to change to Forward Icon.
+                          s++;
+                          break;
+                      case 1:
+                          setAlarm(timePicker, alarmManager, datePicker, runNow);
+                          try {
+                              AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());}
+                          catch (NumberFormatException e){
+                              AlarmFragment.timeout = 4;
+                          }
+                          Tutorial rc = new Tutorial();
+                          Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 3);
+                          startActivity(intent);
+                          break;
                   }
-                  Tutorial rc = new Tutorial();
-                  if (Tutorial.setRunAssistant){
-                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 3);
-                  startActivity(intent);
-                  } else {
-                      //TODO Code quick recap for when app will run.
-                  }
+
+
               }
           });
+
+        scaleOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                timePicker.setVisibility(View.GONE);
+                datePicker.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         /*
         Button to select "Run Now" will create an alert dialog to confirm that the user is requesting
@@ -117,7 +151,7 @@ public class SetAlarm extends AppCompatActivity {
     parameters.
      */
 
-    public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, boolean runNow){
+    public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, DatePicker datePicker, boolean runNow){
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
         specified time. Consists of a pending intent Class to make the intent known regardless of if
@@ -125,17 +159,18 @@ public class SetAlarm extends AppCompatActivity {
          */
 
         if (!runNow){
-        final Intent intent = new Intent(getApplicationContext(), AlarmFragment.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        intent.setAction(Intent.ACTION_MAIN);
-        final PendingIntent pendingIntent = PendingIntent.getActivity
-                (getApplicationContext(), REQUEST_CODE, intent, 0);
-
-        Calendar runTime = Calendar.getInstance();
-        runTime.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
-        runTime.set(Calendar.MINUTE, timePicker.getCurrentMinute());
-        alarmManager.set
-                (AlarmManager.RTC_WAKEUP, runTime.getTimeInMillis(), pendingIntent);}
+            final Intent intent = new Intent(getApplicationContext(), Splash.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.setAction(Intent.ACTION_MAIN);
+            final PendingIntent pendingIntent = PendingIntent.getActivity
+                    (getApplicationContext(), REQUEST_CODE, intent, 0);
+            Calendar runTime = Calendar.getInstance();
+            runTime.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+            runTime.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+            runTime.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+            alarmManager.set
+                    (AlarmManager.RTC_WAKEUP, runTime.getTimeInMillis(), pendingIntent);
+            }
         else{
             ToDoList.runNow = true;
         }

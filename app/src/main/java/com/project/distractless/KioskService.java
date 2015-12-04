@@ -73,7 +73,7 @@ public class KioskService extends Service {
 
     private void restoreApp() {
         // Restart activity
-        Intent i = new Intent(ctx, AlarmFragment.ToDoFragment.class);
+        Intent i = new Intent(ctx, AlarmFragment.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(i);
     }

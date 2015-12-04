@@ -55,8 +55,7 @@ public class AlarmFragment extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         setContentView(R.layout.alarm_fragment);
 
-        //Activates KioskMode
-        PrefUtils.setKioskModeActive(true, getApplicationContext());
+
 
         //Read files contained in the todolist text file.
         File filesDir = getFilesDir();
@@ -82,6 +81,7 @@ public class AlarmFragment extends AppCompatActivity {
             }
         };
         lockTimeout.schedule(task, TimeUnit.HOURS.toMillis(timeout));
+        startService(new Intent(this, KioskService.class));
 
 
         /*
@@ -156,7 +156,7 @@ public class AlarmFragment extends AppCompatActivity {
             return super.dispatchKeyEvent(event);
         }
     }
-
+    /*
     @Override
     protected void onPause() {
         super.onPause();
@@ -166,6 +166,7 @@ public class AlarmFragment extends AppCompatActivity {
 
         activityManager.moveTaskToFront(getTaskId(), 0);
     }
+    */
     //-------END-------
     //KIOSK CODE
 
@@ -306,6 +307,8 @@ public class AlarmFragment extends AppCompatActivity {
             TextView listContents = (TextView) rootView.findViewById(R.id.list_content);
             listNumber.setText(getArguments().getString(ARG_SECTION_NUMBER));
             listContents.setText(getArguments().getString(ARG_LIST_CONTENTS));
+            //Activates KioskMode
+            PrefUtils.setKioskModeActive(true, getApplicationContext());
             return rootView;
         }
 

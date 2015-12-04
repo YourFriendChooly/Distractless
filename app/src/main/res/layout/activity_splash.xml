@@ -75,4 +75,14 @@
         android:layout_alignStart="@+id/frameLayout"
         android:textColor="@color/accent_material_light" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/runPrompt"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:fontFamily="sans-serif-thin" />
+
 </RelativeLayout>

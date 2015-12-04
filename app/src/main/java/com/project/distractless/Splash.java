@@ -13,15 +13,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class Splash extends Activity implements TextureView.SurfaceTextureListener{
 
     MediaPlayer mVideoPlayer;
     SharedPreferences runAssistant;
     SharedPreferences tutorialCheck;
-
+    Intent intent;
     String assistantKey = "KEY";
 
     @Override
@@ -31,16 +33,25 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         TextureView textureView = (TextureView) findViewById(R.id.textureView);
             textureView.setSurfaceTextureListener(this);
         Button goButton = (Button) findViewById(R.id.b_splash_next);
+        TextView runPrompt = (TextView) findViewById(R.id.runPrompt);
+        Boolean isLaunchInRange = PrefUtils.isLaunchInRange(getApplicationContext());
+
+        if (isLaunchInRange){
+            runPrompt.setText("Focus Mode Activated!");
+            intent = new Intent(Splash.this, AlarmFragment.class);
+        }
+        else{
+            Tutorial tut = new Tutorial();
+            intent = tut.ActivitySwitch(Splash.this, Pin.class, 0);}
 
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tutorial tut = new Tutorial();
-                Intent intent = tut.ActivitySwitch(Splash.this, Pin.class, 0);
                 startActivity(intent);
             }
         });
         final Switch runAss = (Switch) findViewById(R.id.sw_runass);
+
 
         runAss.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -52,6 +63,7 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
                 }
             }
         });
+
     }
 //
     @Override
@@ -92,6 +104,4 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
 
     }
-
-
 }
