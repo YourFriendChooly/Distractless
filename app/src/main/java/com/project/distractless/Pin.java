@@ -127,8 +127,8 @@ public class Pin extends AppCompatActivity {
             keyPrompt.setText("Match!");
             exitReveal();
         } else if (fromList && keyEntry.equals(keyInstance)){
-            keyPrompt.setText("Bye!");
-            finish();
+            keyPrompt.setText("Focus Mode Deactivated!");
+            PrefUtils.setKioskModeActive(false, getApplicationContext());
         } else if (keyEntry.length() == 6 && !keyEntry.equals(keyInstance)){
             keyPrompt.setText("Invalid Password");
             keyEntry = "";

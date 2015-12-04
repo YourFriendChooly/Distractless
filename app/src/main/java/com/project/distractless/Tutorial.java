@@ -72,7 +72,7 @@ public class Tutorial extends AppCompatActivity {
             });
 
         //Final Tutorial
-        }else{
+        }else if (setTutorialState == 3){
             txtTutorial.setText(R.string.txtFinalTutorial);
             butTutorial.setText(R.string.butFinalTutorial);
             butTutorial.setOnClickListener(new View.OnClickListener() {

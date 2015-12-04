@@ -1,23 +1,17 @@
 package com.project.distractless;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import java.util.Calendar;
-import java.util.Timer;
 
 /*
 SetAlarm
@@ -55,6 +49,7 @@ public class SetAlarm extends AppCompatActivity {
         some safeguard from abuse. It's maximum length is 4 hours.
         */
         final EditText focusTimeout = (EditText) findViewById(R.id.t_focusTimeout);
+
         /*Create Toolbar,
         Forward click will change the background of the button, and parse the
         user-selected time to a format that can be understood by the alarmManager via the
@@ -62,20 +57,25 @@ public class SetAlarm extends AppCompatActivity {
         alarmManager is set to RTC_WAKEUP which will wake the phone up if it is sleeping,
         and execute the pendingIntent to launch the To-Do Fragment activity.
          */
-        Toolbar setAlarmbar = (Toolbar) findViewById(R.id.alarm_toolbar);
-        setAlarmbar.setTitle("Set Start Time");
-        setAlarmbar.inflateMenu(R.menu.todo_toolbar);
-        setAlarmbar.findViewById(R.id.forward)
-                .setOnClickListener(new View.OnClickListener() {
+        Toolbar alarmbar = (Toolbar) findViewById(R.id.alarm_toolbar);
+        alarmbar.setTitle("Set Start Time");
+        alarmbar.inflateMenu(R.menu.todo_toolbar);
+        alarmbar.findViewById(R.id.forward).setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
                   setAlarm(timePicker, alarmManager, runNow);
-                  if (focusTimeout != null)
-                  AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  try {
+                      AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());}
+                  catch (NumberFormatException e){
+                      AlarmFragment.timeout = 4;
+                  }
                   Tutorial rc = new Tutorial();
-                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
-                  AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                  if (Tutorial.setRunAssistant){
+                  Intent intent = rc.ActivitySwitch(SetAlarm.this, ToDoList.class, 3);
                   startActivity(intent);
+                  } else {
+                      //TODO Code quick recap for when app will run.
+                  }
               }
           });
 
@@ -139,13 +139,6 @@ public class SetAlarm extends AppCompatActivity {
             ToDoList.runNow = true;
         }
     }
-
-
-
-    public void runCheck(){
-        startActivity(new Intent(SetAlarm.this, ToDoList.class));
-    }
-
 }
 
 

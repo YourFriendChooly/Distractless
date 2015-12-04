@@ -1,6 +1,8 @@
 package com.project.distractless;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -12,11 +14,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -27,6 +31,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -39,13 +45,20 @@ public class AlarmFragment extends AppCompatActivity {
     static int numComplete = 0;
     static ViewPager mViewPager;
     static FragmentManager fmanager;
+    private final List blockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP));
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         setContentView(R.layout.alarm_fragment);
+
+        //Activates KioskMode
+        PrefUtils.setKioskModeActive(true, getApplicationContext());
+
+        //Read files contained in the todolist text file.
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
@@ -58,7 +71,6 @@ public class AlarmFragment extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-
         /*
         Calling KioskMode and setting timer for kiosk de-activation.
          */
@@ -70,7 +82,7 @@ public class AlarmFragment extends AppCompatActivity {
             }
         };
         lockTimeout.schedule(task, TimeUnit.HOURS.toMillis(timeout));
-        startLockTask();
+        //startLockTask();
 
 
 
@@ -115,7 +127,54 @@ public class AlarmFragment extends AppCompatActivity {
 
     }
 
-    public static void destroyFragment(int mViewPagerCurrentItem){
+
+    //KIOSK CODE
+    //------START------
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {/*
+    Overriding onWindowFocusChanged and closing dialog screens using the intent manager will prevent
+    the user from using the power button long press to shut down the app while the to-do list is
+    running.
+     */
+        super.onWindowFocusChanged(hasFocus);
+        if(!hasFocus) {
+            // Close every kind of system dialog
+            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+            sendBroadcast(closeDialog);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // nothing to do here
+        // … really
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (blockedKeys.contains(event.getKeyCode())) {
+            return true;
+        } else {
+            return super.dispatchKeyEvent(event);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+
+        activityManager.moveTaskToFront(getTaskId(), 0);
+    }
+    //-------END-------
+    //KIOSK CODE
+
+    //DestroyFragment uses the Pager Adapter as well as a Fragment Transaction to remove
+    //The currently active fragment, the item from the array,
+    //and repopulate the remaining fragments in order.
+    public void destroyFragment(int mViewPagerCurrentItem){
         ToDoFragment pf = new ToDoFragment();
         Fragment newFragment = pf.newInstance(mViewPagerCurrentItem);
         items.remove(mViewPagerCurrentItem);
@@ -127,6 +186,8 @@ public class AlarmFragment extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
+    //CompletedCheck determines if all of the items in the List have been completed using a counter
+    //(completed) and a sentry (total.) This is also the transition point for the next activity.
     public void completedCheck(int completed, int total){
             if (completed == total){
                 Intent completedIntent = new Intent(this, Pin.class);
@@ -134,27 +195,12 @@ public class AlarmFragment extends AppCompatActivity {
                 startActivity(completedIntent);
             }
     }
-
+    /* CAN POTENTIALLY DELETE
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the todo_toolbar; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
         return true;
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-    /*
-    Overriding onWindowFocusChanged and closing dialog screens using the intent manager will prevent
-    the user from using the power button long press to shut down the app while the to-do list is
-    running.
-     */
-        super.onWindowFocusChanged(hasFocus);
-        if(!hasFocus) {
-            // Close every kind of system dialog
-            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-            sendBroadcast(closeDialog);
-        }
     }
 
     @Override
@@ -169,11 +215,9 @@ public class AlarmFragment extends AppCompatActivity {
             return true;
         }
 
-
-
         return super.onOptionsItemSelected(item);
     }
-
+    END POTENTIALLY DELETE*/
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -189,9 +233,7 @@ public class AlarmFragment extends AppCompatActivity {
             Object objectobject = this.instantiateItem(mViewPager, posit);
             if (objectobject != null)
                 destroyItem(mViewPager, posit, objectobject);
-                //TODO Create a FOR loop to rearrange the items in the list after an item has been removed. Possibly using ListIterator.;
          }
-
 
         @Override
         public Fragment getItem(int position) {
@@ -216,7 +258,7 @@ public class AlarmFragment extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            //Count of pages is equal to the number of items in the items array.
             int count = items.size();
             return count;
         }
@@ -226,7 +268,7 @@ public class AlarmFragment extends AppCompatActivity {
     }
 
 
-    public static class ToDoFragment extends Fragment {
+    public class ToDoFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -248,9 +290,6 @@ public class AlarmFragment extends AppCompatActivity {
             args.putString(ARG_SECTION_NUMBER, sectionString);
             args.putString(ARG_LIST_CONTENTS, instanceItems.get(sectionNumber));
             fragment.setArguments(args);
-            int fragID = fragment.getId();
-            args.putInt(ARG_FRAG_ID, fragID);
-            String TAG = "Fragment";
 
             return fragment;
             //Link Data from list array here.
@@ -270,6 +309,17 @@ public class AlarmFragment extends AppCompatActivity {
             listNumber.setText(getArguments().getString(ARG_SECTION_NUMBER));
             listContents.setText(getArguments().getString(ARG_LIST_CONTENTS));
             return rootView;
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+
+            ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                    .getSystemService(Context.ACTIVITY_SERVICE);
+
+            activityManager.moveTaskToFront(getTaskId(), 0);
+
         }
     }
 }
