@@ -33,7 +33,6 @@ public class PrefUtils {
     public static boolean isLaunchInRange(Context context){
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         Calendar def = Calendar.getInstance();
-        def.add(Calendar.DAY_OF_WEEK, 1);
         Long runTime = sp.getLong(PREF_RUN_TIME, def.getTimeInMillis());
         if (runTime <= Calendar.getInstance().getTimeInMillis())
             return true;
