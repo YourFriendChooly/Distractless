@@ -60,6 +60,7 @@ public class Pin extends AppCompatActivity {
             noKey = true;
         } else if (fromList){
             keyPrompt.setText("Congratulations! Enter Key to Unlock Your Phone!");
+            noKey = false;
         }
         else {
             keyPrompt.setText("Enter Your Key");
@@ -160,7 +161,7 @@ public class Pin extends AppCompatActivity {
                 super.onAnimationEnd(animation);
                 //mTransition.setVisibility(View.INVISIBLE);
                 Tutorial tut = new Tutorial();
-                Intent intent = tut.ActivitySwitch(Pin.this, SetAlarm.class, 1);
+                Intent intent = Tutorial.ActivitySwitch(Pin.this, SetAlarm.class, 1);
                 startActivity(intent);
             }
         });

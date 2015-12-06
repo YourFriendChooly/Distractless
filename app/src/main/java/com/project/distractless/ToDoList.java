@@ -78,8 +78,14 @@ public class ToDoList extends ActionBarActivity
             public void onClick(View v) {
                 writeItems();
                 Tutorial rc = new Tutorial();
-                Intent intent = rc.ActivitySwitch(ToDoList.this, Pin.class, 3);
-                startActivity(intent);
+                if (!runNow){
+                    Intent intent = Tutorial.ActivitySwitch(ToDoList.this, Pin.class, 3);
+                    startActivity(intent);
+                } else{
+                    Intent intent = Tutorial.ActivitySwitch(ToDoList.this, AlarmFragment.class, 4);
+                    startActivity(intent);
+                }
+
 
             }
         });

@@ -2,7 +2,6 @@ package com.project.distractless;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.SurfaceTexture;
 import android.media.MediaPlayer;
@@ -13,18 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.Date;
 
 public class Splash extends Activity implements TextureView.SurfaceTextureListener{
 
     MediaPlayer mVideoPlayer;
-    SharedPreferences runAssistant;
-    SharedPreferences tutorialCheck;
-    Intent intent;
-    String assistantKey = "KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,37 +26,24 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         TextureView textureView = (TextureView) findViewById(R.id.textureView);
             textureView.setSurfaceTextureListener(this);
         Button goButton = (Button) findViewById(R.id.b_splash_next);
-        TextView runPrompt = (TextView) findViewById(R.id.runPrompt);
-        Boolean isLaunchInRange = PrefUtils.isLaunchInRange(getApplicationContext());
-
-        if (isLaunchInRange){
-            runPrompt.setText("Focus Mode Activated!");
-            intent = new Intent(Splash.this, AlarmFragment.class);
-        }
-        else{
-            Tutorial tut = new Tutorial();
-            intent = tut.ActivitySwitch(Splash.this, Pin.class, 0);}
 
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Tutorial tut = new Tutorial();
+                Intent intent = Tutorial.ActivitySwitch(Splash.this, Pin.class, 0);
                 startActivity(intent);
             }
+
         });
         final Switch runAss = (Switch) findViewById(R.id.sw_runass);
-
 
         runAss.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    Tutorial.setRunAssistant = true;
-                } else {
-                    Tutorial.setRunAssistant = false;
-                }
+                Tutorial.setRunAssistant = isChecked;
             }
         });
-
     }
 //
     @Override
@@ -104,4 +84,5 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
     public void onSurfaceTextureUpdated(SurfaceTexture surface) {
 
     }
+
 }

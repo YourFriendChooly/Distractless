@@ -34,10 +34,7 @@ public class PrefUtils {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         Calendar def = Calendar.getInstance();
         Long runTime = sp.getLong(PREF_RUN_TIME, def.getTimeInMillis());
-        if (runTime <= Calendar.getInstance().getTimeInMillis())
-            return true;
-        else
-            return false;
+        return runTime <= Calendar.getInstance().getTimeInMillis();
     }
 
 }

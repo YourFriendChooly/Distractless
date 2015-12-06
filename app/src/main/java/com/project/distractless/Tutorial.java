@@ -80,6 +80,15 @@ public class Tutorial extends AppCompatActivity {
                     startActivity(new Intent(Tutorial.this, Splash.class));
                 }
             });
+        }else if (setTutorialState == 4){
+            txtTutorial.setText(R.string.txtFinalTutorial);
+            butTutorial.setText(R.string.butFinalTutorial);
+            butTutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(Tutorial.this, AlarmFragment.class));
+                }
+            });
         }
 
     }

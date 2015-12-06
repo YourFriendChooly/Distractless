@@ -112,7 +112,7 @@ public class AlarmFragment extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                String itemsLeft = Integer.toString(items.size());
+                String itemsLeft = Integer.toString(items.size()-1);
                 Snackbar.make(mViewPager, "Good Job! Only " +itemsLeft+" Tasks Remaining!", Snackbar.LENGTH_SHORT).show();
                 destroyFragment(mViewPager.getCurrentItem());
             }
