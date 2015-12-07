@@ -22,6 +22,7 @@ public class Pin extends AppCompatActivity {
     TextView keyView;
     TextView keyPrompt;
     String keyEntry = "";
+    String keyConfirmTemp = "";
     SharedPreferences keyStore;
     Boolean noKey;
 
@@ -53,18 +54,10 @@ public class Pin extends AppCompatActivity {
         keyStore = getSharedPreferences(KEY, 0);
         keyInstance = keyStore.getString("keyValue", "a");
 
+        ;
         //The following will adjust the keyPrompt output depending on if keyInstance pulls the
         //default value from keyStore or not.
-        if (!fromList && keyInstance.equals("a")) {
-            keyPrompt.setText("Select A 6 Digit Key");
-            noKey = true;
-        } else if (fromList) {
-            keyPrompt.setText("Congratulations! Enter Key to Unlock Your Phone!");
-            noKey = false;
-        } else {
-            keyPrompt.setText("Enter Your Key");
-            noKey = false;
-        }
+        titleSet(fromList);
     }
 
     /*
@@ -114,23 +107,40 @@ public class Pin extends AppCompatActivity {
     the default value is present then the value is replaced by the newly entered key.
      */
     public void numData(String num) {
+
+
+        boolean keyConfirm = false;
         keyEntry = keyEntry + num;
         keyView.setText(keyEntry);
+        SharedPreferences.Editor keyEdit = keyStore.edit();
+        //If key length is 6, and no key exists.
         if (keyEntry.length() == 6 && noKey) {
-            keyPrompt.setText("Saved!");
-            SharedPreferences.Editor keyEdit = keyStore.edit();
-            keyEdit.putString("keyValue", keyEntry);
-            keyEdit.commit();
+            keyPrompt.setText("Please Confirm Key");
+            keyConfirmTemp = keyEntry;
             keyEntry = "";
-            exitReveal(Pin.this, SetAlarm.class);
+            keyView.setText(keyEntry);
+            keyConfirm = true;
+            noKey = false;
+        //If not returning from todolist, and key sizes match.
         } else if (!fromList && keyEntry.equals(keyInstance)) {
             keyPrompt.setText("Match!");
             exitReveal(Pin.this, SetAlarm.class);
+        //If returning from todolist, and key sizes match.
         } else if (fromList && keyEntry.equals(keyInstance)) {
             keyPrompt.setText("Focus Mode Deactivated!");
             PrefUtils.setKioskModeActive(false, getApplicationContext());
+            keyEdit.putString("keyValue", "a");
+            keyEdit.commit();
+            noKey = true;
+            fromList = false;
             exitReveal(Pin.this, Splash.class);
-        } else if (keyEntry.length() == 6 && !keyEntry.equals(keyInstance)) {
+        //If keysize does not match.
+        } else if (!noKey && keyEntry.equals(keyConfirmTemp)) {
+            keyPrompt.setText("Saved!");
+            keyEdit.putString("keyValue", keyEntry);
+            keyEdit.commit();
+            exitReveal(Pin.this, SetAlarm.class);
+        }else if (keyEntry.length() == 6 && (!keyEntry.equals(keyInstance) || !keyEntry.equals(keyConfirmTemp))) {
             keyPrompt.setText("Invalid Password");
             keyEntry = "";
             keyView.setText(keyEntry);
@@ -169,5 +179,18 @@ public class Pin extends AppCompatActivity {
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setDuration(550);
         anim.start();
+    }
+
+    void titleSet(boolean fromList){
+        if (!fromList && keyInstance.equals("a")) {
+            keyPrompt.setText("Select A 6 Digit Key");
+            noKey = true;
+        } else if (fromList) {
+            keyPrompt.setText("Congratulations! Enter Key to Unlock Your Phone!");
+            noKey = false;
+        } else {
+            keyPrompt.setText("Enter Your Key");
+            noKey = false;
+        }
     }
 }

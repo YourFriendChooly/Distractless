@@ -35,23 +35,25 @@ public class ToDoList extends ActionBarActivity {
         is present, prompt the user to either load the old to-do list or create a new one.
          */
         ListView lvItems = (ListView) findViewById(R.id.lvItems);
+        AlertDialog.Builder prompt = new AlertDialog.Builder(ToDoList.this);
+        final AlertDialog.Builder warning = new AlertDialog.Builder(ToDoList.this);
+
         readItems();
         items = new ArrayList<>();
         itemsAdapter = new ArrayAdapter<>
                 (ToDoList.this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
         if (readItems()) {
-            AlertDialog.Builder loadPrompt = new AlertDialog.Builder(ToDoList.this);
-            loadPrompt.setTitle("Previous To-Do List Found");
-            loadPrompt.setMessage("Would you like to load your old list, or start a new one?");
+            prompt.setTitle("Previous To-Do List Found");
+            prompt.setMessage("Would you like to load your old list, or start a new one?");
 
-            loadPrompt.setPositiveButton("NEW LIST", new DialogInterface.OnClickListener() {
+            prompt.setPositiveButton("NEW LIST", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     items.clear();
                 }
             });
-            loadPrompt.setNegativeButton("LOAD LIST", new DialogInterface.OnClickListener() {
+            prompt.setNegativeButton("LOAD LIST", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     readItems();
@@ -59,8 +61,8 @@ public class ToDoList extends ActionBarActivity {
                     itemsAdapter.notifyDataSetChanged();
                 }
             });
-            AlertDialog dialog = loadPrompt.create();
-            dialog.show();
+            AlertDialog dialogAlert = prompt.create();
+            dialogAlert.show();
         }
 
 
@@ -75,13 +77,24 @@ public class ToDoList extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 writeItems();
-                Tutorial rc = new Tutorial();
-                if (!runNow) {
-                    Intent intent = Tutorial.ActivitySwitch(ToDoList.this, Pin.class, 3);
-                    startActivity(intent);
-                } else {
-                    Intent intent = Tutorial.ActivitySwitch(ToDoList.this, AlarmFragment.class, 4);
-                    startActivity(intent);
+                if (items.size() > 0) {
+                    if (!runNow) {
+                        Intent intent = Tutorial.ActivitySwitch(ToDoList.this, Pin.class, 3);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = Tutorial.ActivitySwitch(ToDoList.this, AlarmFragment.class, 4);
+                        startActivity(intent);
+                    }
+                }else {
+                    warning.setMessage("Your List Is Empty!");
+                    warning.setPositiveButton("Whoops!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog dialogWarning = warning.create();
+                    dialogWarning.show();
                 }
 
 
@@ -121,8 +134,6 @@ public class ToDoList extends ActionBarActivity {
                         items.add(itemText);
                         input.setText("");
                         writeItems();
-
-
                     }
                 });
                 builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

@@ -112,10 +112,18 @@ public class AlarmFragment extends AppCompatActivity {
 
             }
 
+            /**
+             * onAnimationEnd contains method call for destroying the currently active fragment pane.
+             * @param animation
+             */
             @Override
             public void onAnimationEnd(Animation animation) {
                 String itemsLeft = Integer.toString(items.size() - 1);
-                Snackbar.make(mViewPager, "Good Job! Only " + itemsLeft + " Tasks Remaining!", Snackbar.LENGTH_SHORT).show();
+                if (itemsLeft.equals("1")){
+                    Snackbar.make(mViewPager, "Good Job! Only " + itemsLeft + " Task Remaining!", Snackbar.LENGTH_SHORT).show();
+                }
+                else{
+                Snackbar.make(mViewPager, "Good Job! Only " + itemsLeft + " Tasks Remaining!", Snackbar.LENGTH_SHORT).show();}
                 destroyFragment(mViewPager.getCurrentItem());
             }
 
@@ -158,7 +166,7 @@ public class AlarmFragment extends AppCompatActivity {
             return super.dispatchKeyEvent(event);
         }
     }
-    /*
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -168,7 +176,7 @@ public class AlarmFragment extends AppCompatActivity {
 
         activityManager.moveTaskToFront(getTaskId(), 0);
     }
-    */
+
     //-------END-------
     //KIOSK CODE
 
@@ -194,6 +202,7 @@ public class AlarmFragment extends AppCompatActivity {
             Intent completedIntent = new Intent(this, Pin.class);
             Pin.fromList = true;
             startActivity(completedIntent);
+            numComplete = 0;
         }
     }
     /* CAN POTENTIALLY DELETE
