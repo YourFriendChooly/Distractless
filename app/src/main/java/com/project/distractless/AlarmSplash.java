@@ -12,10 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.io.IOException;
 
-public class Splash extends Activity implements TextureView.SurfaceTextureListener {
+public class AlarmSplash extends Activity implements TextureView.SurfaceTextureListener {
 
     MediaPlayer mVideoPlayer;
 
@@ -25,25 +26,20 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         setContentView(R.layout.activity_splash);
         TextureView textureView = (TextureView) findViewById(R.id.textureView);
         textureView.setSurfaceTextureListener(this);
+        TextView textView = (TextView) findViewById(R.id.runPrompt);
         Button goButton = (Button) findViewById(R.id.b_splash_next);
 
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Tutorial tut = new Tutorial();
-                Intent intent = tut.ActivitySwitch(Splash.this, Pin.class, 0);
+                Intent intent = new Intent(AlarmSplash.this, AlarmFragment.class);
                 startActivity(intent);
             }
 
         });
         final Switch runAss = (Switch) findViewById(R.id.sw_runass);
-
-        runAss.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Tutorial.setRunAssistant = isChecked;
-            }
-        });
+        runAss.setVisibility(View.GONE);
+        textView.setText("Focus Mode Activated! Let's Get Productive!");
     }
 
     //

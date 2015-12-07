@@ -2,15 +2,15 @@ package com.project.distractless;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
-
 
 
 public class Pin extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class Pin extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (fromList){
+        if (fromList) {
             keyPrompt.setText("Congratulations! Enter Your Key to Unlock Your Phone!");
 
         }
@@ -55,14 +55,13 @@ public class Pin extends AppCompatActivity {
 
         //The following will adjust the keyPrompt output depending on if keyInstance pulls the
         //default value from keyStore or not.
-        if (!fromList && keyInstance.equals("a")){
+        if (!fromList && keyInstance.equals("a")) {
             keyPrompt.setText("Select A 6 Digit Key");
             noKey = true;
-        } else if (fromList){
+        } else if (fromList) {
             keyPrompt.setText("Congratulations! Enter Key to Unlock Your Phone!");
             noKey = false;
-        }
-        else {
+        } else {
             keyPrompt.setText("Enter Your Key");
             noKey = false;
         }
@@ -73,8 +72,8 @@ public class Pin extends AppCompatActivity {
     us to easily code the return values for all of the numbers in the numberpad instead of having
     to code an on-click listener for each of the 10 buttons.
      */
-    public void numPad (View view){
-        switch(view.getId()){
+    public void numPad(View view) {
+        switch (view.getId()) {
             case R.id.numPad1:
                 numData("1");
                 break;
@@ -114,23 +113,24 @@ public class Pin extends AppCompatActivity {
     noKey is a boolean assignment that looks for a default value assigned to the key in memory, if
     the default value is present then the value is replaced by the newly entered key.
      */
-    public void numData (String num){
+    public void numData(String num) {
         keyEntry = keyEntry + num;
         keyView.setText(keyEntry);
-        if (keyEntry.length() == 6 && noKey){
+        if (keyEntry.length() == 6 && noKey) {
             keyPrompt.setText("Saved!");
             SharedPreferences.Editor keyEdit = keyStore.edit();
             keyEdit.putString("keyValue", keyEntry);
             keyEdit.commit();
             keyEntry = "";
-            exitReveal();
+            exitReveal(Pin.this, SetAlarm.class);
         } else if (!fromList && keyEntry.equals(keyInstance)) {
             keyPrompt.setText("Match!");
-            exitReveal();
-        } else if (fromList && keyEntry.equals(keyInstance)){
+            exitReveal(Pin.this, SetAlarm.class);
+        } else if (fromList && keyEntry.equals(keyInstance)) {
             keyPrompt.setText("Focus Mode Deactivated!");
             PrefUtils.setKioskModeActive(false, getApplicationContext());
-        } else if (keyEntry.length() == 6 && !keyEntry.equals(keyInstance)){
+            exitReveal(Pin.this, Splash.class);
+        } else if (keyEntry.length() == 6 && !keyEntry.equals(keyInstance)) {
             keyPrompt.setText("Invalid Password");
             keyEntry = "";
             keyView.setText(keyEntry);
@@ -139,17 +139,17 @@ public class Pin extends AppCompatActivity {
 
     /*
     exitRevel creates a circular reveal animation for transition from activity to activity.
-    it reads the screen size, and determines the center of the screen, for it's start and end
+    it reads the screen size, and determines the center of the screen for it's start and end
     parameters.
      */
-    void exitReveal() {
+    void exitReveal(final Context context, final Class toClass) {
         final View mTransition = findViewById(R.id.pinScreen);
         //Get Center of screen for clip
-        int cx = mTransition.getMeasuredWidth()/2;
-        int cy = mTransition.getMeasuredHeight()/2;
+        int cx = mTransition.getMeasuredWidth() / 2;
+        int cy = mTransition.getMeasuredHeight() / 2;
 
         //get final radius of clipping circle
-        int finalRadius = Math.max(mTransition.getWidth(), mTransition.getHeight())/2;
+        int finalRadius = Math.max(mTransition.getWidth(), mTransition.getHeight()) / 2;
 
         //Create an Animator for the view
         Animator anim =
@@ -161,7 +161,8 @@ public class Pin extends AppCompatActivity {
                 super.onAnimationEnd(animation);
                 //mTransition.setVisibility(View.INVISIBLE);
                 Tutorial tut = new Tutorial();
-                Intent intent = Tutorial.ActivitySwitch(Pin.this, SetAlarm.class, 1);
+                Intent intent = Tutorial.ActivitySwitch(context, toClass, 1);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });

@@ -4,20 +4,18 @@ package com.project.distractless;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -56,7 +54,6 @@ public class AlarmFragment extends AppCompatActivity {
         setContentView(R.layout.alarm_fragment);
 
 
-
         //Read files contained in the todolist text file.
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
@@ -77,7 +74,7 @@ public class AlarmFragment extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-            PrefUtils.setKioskModeActive(false, getApplicationContext());
+                PrefUtils.setKioskModeActive(false, getApplicationContext());
             }
         };
         lockTimeout.schedule(task, TimeUnit.HOURS.toMillis(timeout));
@@ -112,8 +109,8 @@ public class AlarmFragment extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                String itemsLeft = Integer.toString(items.size()-1);
-                Snackbar.make(mViewPager, "Good Job! Only " +itemsLeft+" Tasks Remaining!", Snackbar.LENGTH_SHORT).show();
+                String itemsLeft = Integer.toString(items.size() - 1);
+                Snackbar.make(mViewPager, "Good Job! Only " + itemsLeft + " Tasks Remaining!", Snackbar.LENGTH_SHORT).show();
                 destroyFragment(mViewPager.getCurrentItem());
             }
 
@@ -135,7 +132,7 @@ public class AlarmFragment extends AppCompatActivity {
     running.
      */
         super.onWindowFocusChanged(hasFocus);
-        if(!hasFocus) {
+        if (!hasFocus) {
             // Close every kind of system dialog
             Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
             sendBroadcast(closeDialog);
@@ -173,7 +170,7 @@ public class AlarmFragment extends AppCompatActivity {
     //DestroyFragment uses the Pager Adapter as well as a Fragment Transaction to remove
     //The currently active fragment, the item from the array,
     //and repopulate the remaining fragments in order.
-    public void destroyFragment(int mViewPagerCurrentItem){
+    public void destroyFragment(int mViewPagerCurrentItem) {
         ToDoFragment pf = new ToDoFragment();
         Fragment newFragment = pf.newInstance(mViewPagerCurrentItem);
         items.remove(mViewPagerCurrentItem);
@@ -187,12 +184,12 @@ public class AlarmFragment extends AppCompatActivity {
 
     //CompletedCheck determines if all of the items in the List have been completed using a counter
     //(completed) and a sentry (total.) This is also the transition point for the next activity.
-    public void completedCheck(int completed, int total){
-            if (completed == total){
-                Intent completedIntent = new Intent(this, Pin.class);
-                Pin.fromList = true;
-                startActivity(completedIntent);
-            }
+    public void completedCheck(int completed, int total) {
+        if (completed == total) {
+            Intent completedIntent = new Intent(this, Pin.class);
+            Pin.fromList = true;
+            startActivity(completedIntent);
+        }
     }
     /* CAN POTENTIALLY DELETE
     @Override
@@ -228,11 +225,11 @@ public class AlarmFragment extends AppCompatActivity {
             super(fm);
         }
 
-        public void DestroyItem(int posit){
+        public void DestroyItem(int posit) {
             Object objectobject = this.instantiateItem(mViewPager, posit);
             if (objectobject != null)
                 destroyItem(mViewPager, posit, objectobject);
-         }
+        }
 
         @Override
         public Fragment getItem(int position) {
@@ -246,7 +243,7 @@ public class AlarmFragment extends AppCompatActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             super.destroyItem(container, position, object);
-            }
+        }
 
 
         @Override
@@ -261,7 +258,6 @@ public class AlarmFragment extends AppCompatActivity {
             int count = items.size();
             return count;
         }
-
 
 
     }
@@ -284,7 +280,7 @@ public class AlarmFragment extends AppCompatActivity {
         public ToDoFragment newInstance(int sectionNumber) {
             ArrayList<String> instanceItems = items;
             ToDoFragment fragment = new ToDoFragment();
-            String sectionString = String.valueOf(sectionNumber+1);
+            String sectionString = String.valueOf(sectionNumber + 1);
             Bundle args = new Bundle();
             args.putString(ARG_SECTION_NUMBER, sectionString);
             args.putString(ARG_LIST_CONTENTS, instanceItems.get(sectionNumber));

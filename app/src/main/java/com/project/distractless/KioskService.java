@@ -23,7 +23,7 @@ public class KioskService extends Service {
     @Override
     public void onDestroy() {
         Log.i(TAG, "Stopping service 'KioskService'");
-        running =false;
+        running = false;
         super.onDestroy();
     }
 
@@ -44,7 +44,7 @@ public class KioskService extends Service {
                     } catch (InterruptedException e) {
                         Log.i(TAG, "Thread interrupted: 'KioskService'");
                     }
-                }while(running);
+                } while (running);
                 stopSelf();
             }
         });
@@ -55,9 +55,9 @@ public class KioskService extends Service {
 
     private void handleKioskMode() {
         // is Kiosk Mode active?
-        if(PrefUtils.isKioskModeActive(ctx)) {
+        if (PrefUtils.isKioskModeActive(ctx)) {
             // is App in background?
-            if(isInBackground()) {
+            if (isInBackground()) {
                 restoreApp(); // restore!
             }
         }

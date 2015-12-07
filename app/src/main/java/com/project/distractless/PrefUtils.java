@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Andreas Schrade on 19.02.2015.
@@ -25,12 +24,12 @@ public class PrefUtils {
         sp.edit().putBoolean(PREF_KIOSK_MODE, active).commit();
     }
 
-    public static void setRunTime(final Calendar runTime, final Context context){
+    public static void setRunTime(final Calendar runTime, final Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         sp.edit().putLong(PREF_RUN_TIME, runTime.getTimeInMillis()).commit();
     }
 
-    public static boolean isLaunchInRange(Context context){
+    public static boolean isLaunchInRange(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         Calendar def = Calendar.getInstance();
         Long runTime = sp.getLong(PREF_RUN_TIME, def.getTimeInMillis());

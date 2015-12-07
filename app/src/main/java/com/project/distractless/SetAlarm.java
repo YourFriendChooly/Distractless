@@ -1,25 +1,21 @@
 package com.project.distractless;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+
 import java.util.Calendar;
 
 /*
@@ -73,26 +69,27 @@ public class SetAlarm extends AppCompatActivity {
         alarmbar.setTitle("Set Start Time");
         alarmbar.inflateMenu(R.menu.todo_toolbar);
         alarmbar.findViewById(R.id.forward).setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  switch (s) {
-                      case 0: timePicker.startAnimation(scaleOut);
-                          s++;
-                          break;
-                      case 1:
-                          setAlarm(timePicker, alarmManager, datePicker);
-                          try {
-                              AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());}
-                          catch (NumberFormatException e){
-                              AlarmFragment.timeout = 4;
-                          }
-                          startActivity(intent);
-                          break;
-                  }
+            @Override
+            public void onClick(View v) {
+                switch (s) {
+                    case 0:
+                        timePicker.startAnimation(scaleOut);
+                        s++;
+                        break;
+                    case 1:
+                        setAlarm(timePicker, alarmManager, datePicker);
+                        try {
+                            AlarmFragment.timeout = Integer.parseInt(focusTimeout.getText().toString());
+                        } catch (NumberFormatException e) {
+                            AlarmFragment.timeout = 4;
+                        }
+                        startActivity(intent);
+                        break;
+                }
 
 
-              }
-          });
+            }
+        });
 
         scaleOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -119,7 +116,7 @@ public class SetAlarm extends AppCompatActivity {
         bRunNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            AlertDialog.Builder usrConfirm = new AlertDialog.Builder(SetAlarm.this);
+                AlertDialog.Builder usrConfirm = new AlertDialog.Builder(SetAlarm.this);
                 usrConfirm.setTitle("Confirm Selection");
                 usrConfirm.setMessage("You've selected to run the list in focus mode as soon as it" +
                         " has been created, is that right?");
@@ -150,16 +147,16 @@ public class SetAlarm extends AppCompatActivity {
     parameters.
      */
 
-    public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, DatePicker datePicker){
+    public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, DatePicker datePicker) {
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
         specified time. Consists of a pending intent Class to make the intent known regardless of if
         the app is active or not. If boolean runNow is true, no alarm will be set.
          */
 
-        if (!ToDoList.runNow){
-            final Intent intent = new Intent(getApplicationContext(), AlarmFragment.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        if (!ToDoList.runNow) {
+            final Intent intent = new Intent(getApplicationContext(), AlarmSplash.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.setAction(Intent.ACTION_MAIN);
             final PendingIntent pendingIntent = PendingIntent.getActivity
                     (getApplicationContext(), REQUEST_CODE, intent, 0);
@@ -169,8 +166,7 @@ public class SetAlarm extends AppCompatActivity {
             runTime.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
             alarmManager.set
                     (AlarmManager.RTC_WAKEUP, runTime.getTimeInMillis(), pendingIntent);
-            }
-        else{
+        } else {
             ToDoList.runNow = true;
         }
     }

@@ -9,7 +9,7 @@ import android.os.PowerManager;
 /**
  * Created by Andreas Schrade on 19.02.2015.
  */
-public class AppContext  extends Application {
+public class AppContext extends Application {
 
     private AppContext instance;
     private PowerManager.WakeLock wakeLock;
@@ -32,7 +32,7 @@ public class AppContext  extends Application {
     }
 
     public PowerManager.WakeLock getWakeLock() {
-        if(wakeLock == null) {
+        if (wakeLock == null) {
             // lazy loading: first call, create wakeLock via PowerManager.
             PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
             wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "wakeup");

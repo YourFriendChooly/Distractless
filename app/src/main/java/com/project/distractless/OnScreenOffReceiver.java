@@ -9,10 +9,10 @@ public class OnScreenOffReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(Intent.ACTION_SCREEN_OFF.equals(intent.getAction())){
+        if (Intent.ACTION_SCREEN_OFF.equals(intent.getAction())) {
             AppContext ctx = (AppContext) context.getApplicationContext();
             // is Kiosk Mode active?
-            if(PrefUtils.isKioskModeActive(ctx)) {
+            if (PrefUtils.isKioskModeActive(ctx)) {
                 wakeUpDevice(ctx);
             }
         }

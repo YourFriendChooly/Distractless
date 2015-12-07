@@ -17,6 +17,8 @@
         <activity android:name=".ToDoList" />
         <activity android:name=".SetAlarm" />
         <activity android:name=".Tutorial" />
+        <activity android:name=".AlarmSplash" />
+
         <activity
             android:name=".AlarmFragment"
             android:label="@string/title_activity_alarm_fragment"

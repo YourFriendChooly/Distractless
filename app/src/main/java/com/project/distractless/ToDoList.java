@@ -21,15 +21,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class ToDoList extends ActionBarActivity
-{
+public class ToDoList extends ActionBarActivity {
     public static ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
     public static boolean runNow = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.to_do_list);
         /*
@@ -42,7 +40,7 @@ public class ToDoList extends ActionBarActivity
         itemsAdapter = new ArrayAdapter<>
                 (ToDoList.this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
-        if (readItems()){
+        if (readItems()) {
             AlertDialog.Builder loadPrompt = new AlertDialog.Builder(ToDoList.this);
             loadPrompt.setTitle("Previous To-Do List Found");
             loadPrompt.setMessage("Would you like to load your old list, or start a new one?");
@@ -78,10 +76,10 @@ public class ToDoList extends ActionBarActivity
             public void onClick(View v) {
                 writeItems();
                 Tutorial rc = new Tutorial();
-                if (!runNow){
+                if (!runNow) {
                     Intent intent = Tutorial.ActivitySwitch(ToDoList.this, Pin.class, 3);
                     startActivity(intent);
-                } else{
+                } else {
                     Intent intent = Tutorial.ActivitySwitch(ToDoList.this, AlarmFragment.class, 4);
                     startActivity(intent);
                 }
@@ -149,8 +147,7 @@ public class ToDoList extends ActionBarActivity
         }
     }
 
-    public boolean readItems()
-    {
+    public boolean readItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
@@ -159,7 +156,7 @@ public class ToDoList extends ActionBarActivity
                 return true;
             else
                 items = new ArrayList<>();
-                return false;
+            return false;
         } catch (IOException e) {
             items = new ArrayList<>();
             return false;
@@ -167,8 +164,7 @@ public class ToDoList extends ActionBarActivity
 
     }
 
-    private void writeItems()
-    {
+    private void writeItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
         try {
