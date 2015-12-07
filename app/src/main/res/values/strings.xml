@@ -38,7 +38,7 @@
                                 123456, it\'s not  the 1980\'s!</string>
 
     <string name="txtTimerTutorial">Distractless can enter Focus Mode in one of two ways, either at a set time,
-                                    or as soon as you make your list.\n\n\n\nSimply pick the time you want focus mode to start,
+                                    or as soon as you make your list.\n\n\n\nSimply pick the time you want Focus Mode to start,
                                     or press the "Run Immediately" button to start Focus Mode as soon as you\'re ready.</string>
 
     <string name="txtToDoTutorial">Now it\'s time to make your list!\n\n\n\nNew items can be added by pressing the yellow plus sign. Once
@@ -48,7 +48,7 @@
                                     Distractless will be active. Whether you need an few hours of focus to finish that essay,
                                     or a few minutes to tidy up, Distractless can be set to meet your needs!</string>
 
-    <string name="txtFinalTutorial">Look at that, we made it! Nothing left to do now but be productive! Focus mode
+    <string name="txtFinalTutorial">Look at that, we made it! Nothing left to do now but be productive! Focus Mode
                                     will now start at the scheduled time, or right now depending on what options you chose.</string>
     <string name="butFinalTutorial">Thanks for the help!</string>
 
