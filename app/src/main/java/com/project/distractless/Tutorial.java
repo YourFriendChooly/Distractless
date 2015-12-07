@@ -79,6 +79,7 @@ public class Tutorial extends AppCompatActivity {
                     Intent intent = new Intent(Tutorial.this, Splash.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+                    setRunAssistant = false;
                 }
             });
         } else if (setTutorialState == 4) {
@@ -90,6 +91,7 @@ public class Tutorial extends AppCompatActivity {
                     Intent intent = new Intent(Tutorial.this, AlarmFragment.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+                    setRunAssistant = false;
                 }
             });
         }

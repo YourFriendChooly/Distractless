@@ -1,3 +1,44 @@
+/*
+Created By: Joe Novak and Kole Woodley
+Copyright 2015
+Date: November and December 2015
+Title: Distractless
+Created in Android Studio Version 1.4, 1.5, and 2.0
+Asset Attribution:
+        Icon: Joe Novak
+        Splash Screen Video: Joe Novak
+
+Frozen in Frobisher Bay:
+James Gordon
+
+        Chorus
+    Cold is the arctic sea
+    Far are your arms from me
+    Long will this winter be
+    Frozen in Frobisher Bay
+    Frozen in Frobisher Bay
+
+    "One more whale," our captain cried
+    "One more whale and well beat the ice."
+    But the winter star was in the sky
+    The seas were rough the winds were high.
+
+    Chorus
+
+    Deep were the crashing waves
+    That tore our whalers mast away
+    Dark are these sunless days
+    Waiting for the ice to break.
+
+    Chorus
+
+    Strange is a whaler's fate
+    To be saved from the raging waves
+    Only to waste away
+    Frozen in this lonely grave.
+
+    Chorus
+*/
 package com.project.distractless;
 
 import android.app.Activity;
