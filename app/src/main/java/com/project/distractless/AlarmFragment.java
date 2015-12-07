@@ -81,10 +81,10 @@ public class AlarmFragment extends AppCompatActivity {
         startService(new Intent(this, KioskService.class));
 
 
-        /*
+        /**
         FloatingActionButton fab serves as an icon to mark a task as complete. The following
-        fragmentManager will remove the fragment once it has been completed.
-         */
+         {@link SectionsPagerAdapter} will remove the fragment once it has been completed.
+         **/
         final int total = items.size();
         final Animation bounce = AnimationUtils.loadAnimation(this, R.anim.zoom);
         FloatingActionButton runFab = (FloatingActionButton) findViewById(R.id.runFab);
@@ -102,6 +102,11 @@ public class AlarmFragment extends AppCompatActivity {
         fmanager = getSupportFragmentManager();
 
         bounce.setAnimationListener(new Animation.AnimationListener() {
+            /**
+             * Animation Listener will trigger the destruction of a fragment pane on button click,
+             * after the thumbs up animation has completed, and trigger a snackbar notification.
+             * @param animation
+             */
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -217,7 +222,8 @@ public class AlarmFragment extends AppCompatActivity {
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
+     * one of the sections/tabs/pages. Most of the Overrides were automatically generated and do not
+     * need to be altered.
      */
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -225,6 +231,11 @@ public class AlarmFragment extends AppCompatActivity {
             super(fm);
         }
 
+        /**
+         * DestroyItem will assist us in destroying the fragment pane by instantiating a version of
+         * the dynamically created fragment.
+         * @param posit contains the location of the fragment to be destroyed.
+         */
         public void DestroyItem(int posit) {
             Object objectobject = this.instantiateItem(mViewPager, posit);
             if (objectobject != null)
@@ -270,12 +281,11 @@ public class AlarmFragment extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "list_number";
         private static final String ARG_LIST_CONTENTS = "list_contents";
-        private static final String ARG_FRAG_ID = "fragment_id";
 
 
         /**
          * Returns a new instance of this fragment for the given section
-         * number.
+         * number, with the contents of the String Array at index sectionNumber.
          */
         public ToDoFragment newInstance(int sectionNumber) {
             ArrayList<String> instanceItems = items;
@@ -285,9 +295,7 @@ public class AlarmFragment extends AppCompatActivity {
             args.putString(ARG_SECTION_NUMBER, sectionString);
             args.putString(ARG_LIST_CONTENTS, instanceItems.get(sectionNumber));
             fragment.setArguments(args);
-
             return fragment;
-            //Link Data from list array here.
 
 
         }
@@ -308,13 +316,16 @@ public class AlarmFragment extends AppCompatActivity {
             return rootView;
         }
 
+        /**
+         * On Pause is an extension of the KioskMode functionality to assist with disabling the
+         * 'Recent Applications' button on some phones.
+         */
         @Override
         public void onPause() {
             super.onPause();
 
             ActivityManager activityManager = (ActivityManager) getApplicationContext()
                     .getSystemService(Context.ACTIVITY_SERVICE);
-
             activityManager.moveTaskToFront(getTaskId(), 0);
 
         }

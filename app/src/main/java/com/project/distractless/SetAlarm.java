@@ -141,19 +141,12 @@ public class SetAlarm extends AppCompatActivity {
 
 
 
-    /*
-    exitRevel creates a circular reveal animation for transition from activity to activity.
-    it reads the screen size, and determines the center of the screen, for it's start and end
-    parameters.
-     */
 
     public void setAlarm(TimePicker timePicker, AlarmManager alarmManager, DatePicker datePicker) {
          /*
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
-        specified time. Consists of a pending intent Class to make the intent known regardless of if
-        the app is active or not. If boolean runNow is true, no alarm will be set.
+        specified time. If boolean runNow is true, no alarm will be set.
          */
-
         if (!ToDoList.runNow) {
             final Intent intent = new Intent(getApplicationContext(), AlarmSplash.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

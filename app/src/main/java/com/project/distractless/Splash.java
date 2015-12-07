@@ -46,7 +46,7 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         });
     }
 
-    //
+
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         Surface surfaceTexture = new Surface(surface);

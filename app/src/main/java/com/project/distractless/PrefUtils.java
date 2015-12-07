@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 /**
  * Created by Andreas Schrade on 19.02.2015.
+ * Implemented by Joseph Novak.
+ * Please refer to LICENCE.TXT for information on Applicable Usage Rights.
  */
 public class PrefUtils {
     private static final String PREF_KIOSK_MODE = "pref_kiosk_mode";

@@ -18,6 +18,10 @@ import java.io.IOException;
 
 public class AlarmSplash extends Activity implements TextureView.SurfaceTextureListener {
 
+    /**AlarmSplash is identical to Splash, with the addition of a textview and changes to the
+     * application flow.
+     */
+
     MediaPlayer mVideoPlayer;
 
     @Override

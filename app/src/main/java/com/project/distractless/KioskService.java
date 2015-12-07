@@ -11,6 +11,13 @@ import android.util.Log;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * Created by Andreas Schrade on 19.02.2015.
+ * Implemented by Joseph Novak.
+ * Please refer to LICENCE.TXT for information on Applicable Usage Rights.
+ */
+
 public class KioskService extends Service {
 
     private static final long INTERVAL = TimeUnit.SECONDS.toMillis(1); // periodic interval to check in seconds -> 2 seconds

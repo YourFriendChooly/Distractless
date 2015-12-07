@@ -8,6 +8,8 @@ import android.os.PowerManager;
 
 /**
  * Created by Andreas Schrade on 19.02.2015.
+ * Implemented by Joseph Novak.
+ * Please refer to LICENCE.TXT for information on Applicable Usage Rights.
  */
 public class AppContext extends Application {
 
