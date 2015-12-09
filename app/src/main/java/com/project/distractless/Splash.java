@@ -67,6 +67,7 @@ public class Splash extends Activity implements TextureView.SurfaceTextureListen
         TextureView textureView = (TextureView) findViewById(R.id.textureView);
         textureView.setSurfaceTextureListener(this);
         Button goButton = (Button) findViewById(R.id.b_splash_next);
+        goButton.setTextColor(getResources().getColor(R.color.colorAccent));
 
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override

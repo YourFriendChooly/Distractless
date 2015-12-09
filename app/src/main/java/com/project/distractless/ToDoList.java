@@ -79,13 +79,14 @@ public class ToDoList extends ActionBarActivity {
                 writeItems();
                 if (items.size() > 0) {
                     if (!runNow) {
-                        Intent intent = Tutorial.ActivitySwitch(ToDoList.this, Pin.class, 3);
+                        Intent intent = Tutorial.ActivitySwitch(ToDoList.this, Splash.class, 3);
                         startActivity(intent);
                     } else {
                         Intent intent = Tutorial.ActivitySwitch(ToDoList.this, AlarmFragment.class, 4);
                         startActivity(intent);
                     }
                 }else {
+                    warning.setTitle("Uh-Oh!");
                     warning.setMessage("Your List Is Empty!");
                     warning.setPositiveButton("Whoops!", new DialogInterface.OnClickListener() {
                         @Override

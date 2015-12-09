@@ -54,7 +54,6 @@ public class SetAlarm extends AppCompatActivity {
                 findViewById(R.id.t_focusTimeout);
 
 
-        Tutorial rc = new Tutorial();
         final Intent intent = Tutorial.ActivitySwitch(SetAlarm.this, ToDoList.class, 2);
 
         /*Create Toolbar,
@@ -83,6 +82,7 @@ public class SetAlarm extends AppCompatActivity {
                         } catch (NumberFormatException e) {
                             AlarmFragment.timeout = 4;
                         }
+                        ToDoList.runNow = false;
                         startActivity(intent);
                         break;
                 }
@@ -147,7 +147,6 @@ public class SetAlarm extends AppCompatActivity {
         The following sets up the Intent structure to launch the To-Do fragment activity at the user
         specified time. If boolean runNow is true, no alarm will be set.
          */
-        if (!ToDoList.runNow) {
             final Intent intent = new Intent(getApplicationContext(), AlarmSplash.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.setAction(Intent.ACTION_MAIN);
@@ -159,9 +158,6 @@ public class SetAlarm extends AppCompatActivity {
             runTime.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
             alarmManager.set
                     (AlarmManager.RTC_WAKEUP, runTime.getTimeInMillis(), pendingIntent);
-        } else {
-            ToDoList.runNow = true;
-        }
     }
 }
 

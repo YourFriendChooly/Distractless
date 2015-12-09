@@ -25,15 +25,17 @@
                 android:text="@string/getstarted"
                 android:id="@+id/b_splash_next"
                 style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-                android:background="@color/colorPrimaryDark" />
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent" />
 
             <Switch
-                android:layout_width="fill_parent"
+                android:layout_width="250sp"
                 android:layout_height="wrap_content"
                 android:text="@string/showfirstrun"
                 android:id="@+id/sw_runass"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
     </TableRow>
@@ -84,6 +86,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp"
         android:fontFamily="sans-serif-thin"
-        android:textColor="#d50000" />
+        android:textColor="#d50000"
+        android:textStyle="bold" />
 
 </RelativeLayout>
